@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { FaCalendar } from "react-icons/fa6";
+import {
+  FaCalendar,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import selectRandomObjects from "../utils/selectRandomObjects";
 import { FaCheckCircle } from "react-icons/fa";
@@ -37,7 +43,70 @@ function BlogDetails({ blogs }) {
             <p className="flex gap-2 justify-center items-center text-gray-500">
               <FaCalendar /> {blog.date}
             </p>
-            <p className="text-black/60 text-justify">{blog.content}</p>
+            <div className="space-y-4">
+              <p className="text-black/60 text-justify">{blog.content}</p>
+              <p className="text-black/60 text-justify">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Eveniet sit voluptate, temporibus incidunt fugiat ipsa
+                accusantium non deserunt sunt recusandae ducimus eos deleniti
+                cum a maxime labore unde similique enim! Lorem ipsum dolor, sit
+                amet consectetur adipisicing elit. Eveniet sit voluptate,
+                temporibus incidunt fugiat ipsa accusantium non deserunt sunt
+                recusandae ducimus eos deleniti cum a maxime labore unde
+                similique enim!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="w-full p-5 flex justify-center items-center gap-4">
+          {blog.image_annexe.map((image, index) => {
+            return (
+              <img
+                className="w-[100%] h-[250px] object-cover rounded-xl "
+                src={image}
+                alt={"image annexe n° " + index}
+              />
+            );
+          })}
+        </div>
+        <div className="space-y-4 mt-8">
+          <h1 className="text-2xl">Encore plus sur nous</h1>
+          <p className="text-sm text-black/60">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea
+            provident non nobis laborum! Laboriosam eaque repellat voluptate
+            dolores est facilis, mollitia sint ea ratione non vitae in odio enim
+            iste?
+          </p>
+          <div className="flex gap-8 justify-between items-center">
+            <div>
+              <button className="bg-blue-500 text-white font-semibold rounded-full p-4 box-border hover:bg-blue-600 hover:-translate-y-2 duration-150 ease-in ">
+                Parlons de vos projets
+              </button>
+            </div>
+            <div className="flex gap-8">
+              <a
+                href="#"
+                className="bg-amber-500/10 text-amber-500 rounded-full p-2 hover:bg-amber-500/40"
+              >
+                <FaFacebook />
+              </a>
+              <a
+                href="#"
+                className="bg-blue-500/10 text-blue-500 rounded-full p-2 hover:bg-blue-500/40"
+              >
+                <FaTwitter />
+              </a>
+              <a
+                href=""
+                className="bg-green-500/10 text-green-500 rounded-full p-2 hover:bg-green-500/40"
+              >
+                {" "}
+                <FaInstagram />
+              </a>
+              <a href="" className="bg-black/10 text-black rounded-full p-2 hover:bg-black/40">
+                <FaLinkedin />
+              </a>
+            </div>
           </div>
         </div>
       </div>
