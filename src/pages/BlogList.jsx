@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { FaCalendar, FaEye, FaPen, FaTrash } from "react-icons/fa6";
-import Modal from "./components/Modal.jsx";
-import EditBlogForm from "./components/EditBlogForm.jsx";
-import CreateBlogForm from "./components/CreateBlogForm.jsx";
+import Modal from "../components/Modal.jsx";
+import EditBlogForm from "../components/EditBlogForm.jsx";
+import CreateBlogForm from "../components/CreateBlogForm.jsx";
 import { FaPlusCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const BlogList = ({blogs}) => {
+const BlogList = ({ blogs }) => {
   const [modal, setModal] = useState({ type: null, blog: null });
+  const navigate = useNavigate();
+  const handleShowClick = (blogId) => {
+    // Navigue vers l'URL /blog/ID_DU_BLOG
+    // Vous devez avoir une route configurée comme <Route path="/blog/:id" element={<BlogDetail />} />
+    navigate(`/blog/${blogId}`);
+  };
 
   const openModal = (type, blog) => {
     setModal({ type, blog });
@@ -17,18 +24,17 @@ const BlogList = ({blogs}) => {
   };
 
   const handleCreateBlog = (newBlog) => {
-    const id = Math.max(...blogs.map((b) => b.id), 0) + 1;
-    setBlogs((prev) => [{ id, ...newBlog }, ...prev]);
+    // code pour insertion
+    alert("Votre publication a été crée avec success!");
   };
 
   const handleUpdateBlog = (id, updatedData) => {
-    setBlogs((prev) =>
-      prev.map((blog) => (blog.id === id ? { ...blog, ...updatedData } : blog))
-    );
+    // code pour modufication
+    alert("Votre publication a été modifée avec success!");
   };
 
   const handleDeleteBlog = (id) => {
-    setBlogs((prev) => prev.filter((blog) => blog.id !== id));
+    // code pour insertion
     closeModal();
   };
 
@@ -89,7 +95,6 @@ const BlogList = ({blogs}) => {
 
   return (
     <>
-      {/* boutton create post */}
       <div className="flex justify-end px-6 mb-4">
         <button
           onClick={() => openModal("create", null)}
@@ -99,8 +104,6 @@ const BlogList = ({blogs}) => {
           <span>Nouveau publication</span>
         </button>
       </div>
-
-      {/* body */}
       <section>
         <div className="w-full grid md:grid-cols-2 gap-6 lg:grid-cols-3 p-6">
           {blogs.map((blog) => (
@@ -123,7 +126,7 @@ const BlogList = ({blogs}) => {
                     <FaPen />
                   </button>
                   <button
-                    onClick={() => openModal("show", blog)}
+                    onClick={() => handleShowClick(blog.id)}
                     className={`bg-black/40 cursor-pointer text-blue-500 p-2 rounded-full text-lg 
                     transition duration-300 hover:bg-black/70`}
                   >
@@ -152,7 +155,7 @@ const BlogList = ({blogs}) => {
                   {blog.content.length <= 100 ? null : "..."}
                 </p>
                 <div className="flex justify-between items-center">
-                  <p>⭐⭐⭐⭐⭐ | {"⭐"}</p>
+                  <p>{"⭐".repeat(blog.star)}</p>
                   <p className="flex gap-2 justify-center items-center text-gray-500">
                     <FaCalendar /> {blog.date}
                   </p>
@@ -166,7 +169,6 @@ const BlogList = ({blogs}) => {
           {renderModalContent()}
         </Modal>
       </section>
-      {/* footer */}
     </>
   );
 };

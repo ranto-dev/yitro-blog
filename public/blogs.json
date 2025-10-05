@@ -4,6 +4,8 @@
     "title": "La fête des Dev chez Yitro consulting",
     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint nisi cumque consequuntur mollitia blanditiis adipisci illo, atque accusantium similique dolorem incidunt praesentium ipsum ducimus quaerat quia nesciunt molestias autem repellat.",
     "image": "/blog-img/1.png",
+    "categories": ["Blog", "Evenement", "Fête", "Atelier"],
+    "star": 5,
     "date": "09 Mars 2025"
   },
   {
@@ -11,6 +13,8 @@
     "title": "Fastfood, team lunch",
     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint nisi cumque consequuntur mollitia blanditiis adipisci illo, atque accusantium similique dolorem incidunt praesentium ipsum ducimus quaerat quia nesciunt molestias autem repellat.",
     "image": "/blog-img/2.png",
+    "categories": ["Blog", "Evenement", "Fête", "Atelier"],
+    "star": 5,
     "date": "30 Mars 2025"
   },
   {
@@ -18,6 +22,8 @@
     "title": "Fête de Pacques",
     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint nisi cumque consequuntur mollitia blanditiis adipisci illo, atque accusantium similique dolorem incidunt praesentium ipsum ducimus quaerat quia nesciunt molestias autem repellat.",
     "image": "/blog-img/3.png",
+    "categories": ["Blog", "Evenement", "Fête", "Atelier"],
+    "star": 5,
     "date": "15 Avril 2025"
   },
   {
@@ -25,6 +31,8 @@
     "title": "Atelier, travaillez avec des IA",
     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint nisi cumque consequuntur mollitia blanditiis adipisci illo, atque accusantium similique dolorem incidunt praesentium ipsum ducimus quaerat quia nesciunt molestias autem repellat.",
     "image": "/blog-img/4.png",
+    "categories": ["Blog", "Evenement", "Fête", "Atelier"],
+    "star": 5,
     "date": "25 Avril 2025"
   },
   {
@@ -32,6 +40,8 @@
     "title": "Le grand retour des hackations",
     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint nisi cumque consequuntur mollitia blanditiis adipisci illo, atque accusantium similique dolorem incidunt praesentium ipsum ducimus quaerat quia nesciunt molestias autem repellat.",
     "image": "/blog-img/5.png",
+    "categories": ["Blog", "Evenement", "Fête", "Atelier"],
+    "star": 5,
     "date": "01 Juin 2025"
   }
 ]
