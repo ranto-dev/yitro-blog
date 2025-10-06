@@ -13,10 +13,6 @@ import { motion } from "framer-motion";
 const BlogList = ({ blogs, isAdmin }) => {
   const [modal, setModal] = useState({ type: null, blog: null });
   const navigate = useNavigate();
-  const handleShowClick = (blogId) => {
-    navigate(`/blog/${blogId}`);
-  };
-
   const openModal = (type, blog) => {
     setModal({ type, blog });
   };
@@ -105,8 +101,8 @@ const BlogList = ({ blogs, isAdmin }) => {
         <button
           onClick={() => openModal("create", null)}
           className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${
-                      isAdmin === true ? null : "hidden"
-                    }`}
+            isAdmin === true ? null : "hidden"
+          }`}
         >
           <FaPlusCircle />
           <span>Nouvelle article</span>
@@ -143,14 +139,18 @@ const BlogList = ({ blogs, isAdmin }) => {
                   >
                     <FaPen />
                   </button>
-                  <button
-                    onClick={() => handleShowClick(blog.id)}
+                  <a
+                    href={`/blog/${blog.id}`}
                     className={`bg-black/40 cursor-pointer text-blue-500 p-2 rounded-full text-lg 
                     transition duration-300 hover:bg-black/70 flex justify-center items-center gap-2`}
                   >
                     <FaEye />
-                    <span className={`${ isAdmin === true ? "hidden" : "block"} }`}>Voir plus</span>
-                  </button>
+                    <span
+                      className={`${isAdmin === true ? "hidden" : "block"} }`}
+                    >
+                      Voir plus
+                    </span>
+                  </a>
                   <button
                     onClick={() => openModal("delete", blog)}
                     className={`bg-black/20 cursor-pointer text-red-500 p-2 rounded-full text-lg 
@@ -172,8 +172,8 @@ const BlogList = ({ blogs, isAdmin }) => {
               <div className="space-y-4 p-4">
                 <p className="text-2xl">{blog.title}</p>
                 <p>
-                  {blog.content.slice(0, 100)}
-                  {blog.content.length <= 100 ? null : "..."}
+                  {blog.excerpt.slice(0, 100)}
+                  {blog.excerpt.length <= 100 ? null : "..."}
                 </p>
                 <div className="flex justify-between items-center">
                   <p>{"⭐".repeat(blog.star)}</p>

@@ -5,6 +5,8 @@ import { FaSpinner } from "react-icons/fa6";
 import BlogDetails from "./pages/BlogDetails.jsx";
 import Loading from "./components/layout/loading.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import ServicesPage from "./pages/Service.jsx";
+import ContactPage from "./pages/Contact.jsx";
 
 const ADMIN = {
   username: "admin",
@@ -30,7 +32,7 @@ function App() {
         setBlogs(response_json);
         setTimeout(() => {
           setIsLoaded(true);
-        }, 1500);
+        }, 1000);
       })
       .catch((error) => {
         if (error.name === "AbortError") {
@@ -54,10 +56,12 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage allBlogs={blogs} />} />
         <Route
-          path="/article"
+          path="/articles"
           element={<BlogList blogs={blogs} isAdmin={isAdmin} />}
         />
         <Route path="/blog/:blogId" element={<BlogDetails blogs={blogs} />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </Router>
   );

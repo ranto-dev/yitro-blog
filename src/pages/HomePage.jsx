@@ -6,11 +6,16 @@ import Footer from "../components/layout/footer.jsx";
 import Modal from "../components/Modal.jsx";
 import SigninForm from "../components/layout/signinForm.jsx";
 import { Link } from "react-router-dom";
+import { handleSignin } from "../utils/authentification.js";
 
 function HomePage({ allBlogs }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const NUMBER_OF_BLOGS = 3;
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     if (allBlogs && allBlogs.length > 0) {
@@ -69,8 +74,8 @@ function HomePage({ allBlogs }) {
                       {blog.title}
                     </h3>
                     <p className="text-gray-600 text-sm">
-                      {blog.content
-                        ? `${blog.content.slice(0, 120)}...`
+                      {blog.excerpt
+                        ? `${blog.excerpt.slice(0, 120)}...`
                         : "Pas de contenu disponible..."}
                     </p>
                     <Link
@@ -111,7 +116,7 @@ function HomePage({ allBlogs }) {
           </div>
         </section>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <SigninForm />
+          <SigninForm onClose={closeModal} onCreate={handleSignin} />
         </Modal>
       </div>
       <Footer />

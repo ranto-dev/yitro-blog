@@ -11,9 +11,10 @@ import selectRandomObjects from "../utils/selectRandomObjects";
 import { FaCheckCircle } from "react-icons/fa";
 import Header from "../components/layout/header.jsx";
 import { Link } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
-function BlogDetails({ blogs }) {
+const BlogDetails = ({ blogs }) => {
   const { blogId } = useParams();
   const blog = blogs.find((blog) => blog.id === parseInt(blogId));
   const [randomBlogs, setRandomBlogs] = useState([]);
@@ -63,7 +64,7 @@ function BlogDetails({ blogs }) {
                 <FaCalendar /> {blog.date}
               </p>
               <div className="space-y-4">
-                <p className="text-black/60 text-justify">{blog.content}</p>
+                <p className="text-black/60 text-justify">{blog.excerpt}</p>
                 <p className="text-black/60 text-justify">
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                   Eveniet sit voluptate, temporibus incidunt fugiat ipsa
@@ -81,6 +82,7 @@ function BlogDetails({ blogs }) {
             {blog.image_annexe.map((image, index) => {
               return (
                 <img
+                  key={index}
                   className="w-[100%] h-[250px] object-cover rounded-xl "
                   src={image}
                   alt={"image annexe n° " + index}
@@ -156,10 +158,12 @@ function BlogDetails({ blogs }) {
               <h1 className="text-2xl">Catégories</h1>
             </div>
             <ul className="flex flex-col gap-2 text-sm pl-4">
-              {blog.categories.map((categorie) => {
+              {blog.category.map((categorie, index) => {
                 return (
-                  <li className="flex justify-start items-center gap-2">
-                    {" "}
+                  <li
+                    key={index}
+                    className="flex justify-start items-center gap-2"
+                  >
                     <FaCheckCircle /> {categorie}
                   </li>
                 );
@@ -216,6 +220,6 @@ function BlogDetails({ blogs }) {
       </div>
     </>
   );
-}
+};
 
 export default BlogDetails;

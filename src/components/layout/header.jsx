@@ -4,10 +4,11 @@ import { FaBars, FaTimes, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import Modal from "../Modal.jsx";
 import LoginForm from "./loginForm.jsx";
 import SigninForm from "./signinForm.jsx";
+import { handleLogin, handleSignin } from "../../utils/authentification.js";
 
 const navLinks = [
   { name: "Accueil", href: "/" },
-  { name: "Articles", href: "/article" },
+  { name: "Articles", href: "/articles" },
   { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
 ];
@@ -22,18 +23,6 @@ const Header = () => {
 
   const closeModal = () => {
     setModal({ type: null });
-  };
-
-  const handleLogin = (info) => {
-    // code pour le login
-    console.log(info);
-    alert("Connexion réussi!");
-  };
-
-  const handleSignin = (info) => {
-    // code pour l'inscription
-    console.log(info);
-    alert("Insription réussi!");
   };
 
   const renderModalContentAuth = () => {
@@ -71,13 +60,13 @@ const Header = () => {
           {/* Navigation (Desktop) */}
           <nav className="hidden md:flex space-x-6">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.name}
-                to={link.href}
+                href={link.href}
                 className="text-gray-600 font-medium py-2 px-3 rounded-md hover:bg-gray-100 hover:text-blue-600 transition duration-200"
               >
                 {link.name}
-              </Link>
+              </a>
             ))}
           </nav>
           <div className="flex items-center space-x-3">

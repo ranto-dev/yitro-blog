@@ -2,9 +2,9 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const quickLinks = [
   { name: "Accueil", href: "/" },
-  { name: "Blog", href: "/blog" },
-  { name: "À Propos", href: "/about" },
-  { name: "Services", href: "/services" },
+  { name: "Articles", href: "/articles" },
+  { name: "Service", href: "/services" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const legalLinks = [
