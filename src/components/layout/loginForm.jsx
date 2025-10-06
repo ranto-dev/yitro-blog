@@ -31,7 +31,7 @@ const LoginForm = ({ onClose, onCreate }) => {
             onChange={handleChange}
             id="username"
             className="w-full border border-black/20 rounded-lg p-2"
-            placeholder="ex: john-doe"
+            placeholder="ex: locas05"
           />
         </div>
         <div>
@@ -43,7 +43,7 @@ const LoginForm = ({ onClose, onCreate }) => {
             onChange={handleChange}
             id="password"
             className="w-full border border-black/20 rounded-lg p-2"
-            placeholder="*****"
+            placeholder="**********"
           />
         </div>
       </div>

@@ -5,6 +5,7 @@ import Modal from "../Modal.jsx";
 import LoginForm from "./loginForm.jsx";
 import SigninForm from "./signinForm.jsx";
 import { handleLogin, handleSignin } from "../../utils/authentification.js";
+import { motion } from "framer-motion";
 
 const navLinks = [
   { name: "Accueil", href: "/" },
@@ -47,18 +48,26 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50 border-b border-gray-100">
+    <header className="bg-white shadow-lg sticky top-0 z-50 border-b border-gray-100 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link
-            to="/"
-            className="flex-shrink-0 text-3xl font-extrabold text-blue-700 tracking-tight transition duration-150 hover:text-blue-800"
+          <motion.a
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+            href="/"
+            className="flex-shrink-0 text-3xl font-extrabold text-blue-700 tracking-tight duration-150 hover:text-blue-800"
           >
             YitroBLOG
-          </Link>
+          </motion.a>
 
           {/* Navigation (Desktop) */}
-          <nav className="hidden md:flex space-x-6">
+          <motion.nav
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+            className="hidden md:flex space-x-6"
+          >
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -68,8 +77,13 @@ const Header = () => {
                 {link.name}
               </a>
             ))}
-          </nav>
-          <div className="flex items-center space-x-3">
+          </motion.nav>
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+            className="flex items-center space-x-3"
+          >
             <div className="hidden md:flex space-x-3">
               <button
                 onClick={() => openModal("login")}
@@ -101,7 +115,7 @@ const Header = () => {
                 )}
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 

@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
+import { motion } from "framer-motion";
 
 function ContactPage() {
   return (
@@ -17,14 +18,31 @@ function ContactPage() {
       <div className="min-h-screen bg-gray-50 py-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <section className="text-center mb-12">
-            <h1 className="text-4xl text-black mb-4">Contactez-Nous</h1>
-            <p className="text-sm text-gray-600 max-w-3xl mx-auto">
+            <motion.h1
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+              className="text-4xl text-black mb-4"
+            >
+              Contactez-Nous
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+              className="text-sm text-gray-600 max-w-3xl mx-auto"
+            >
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
+            </motion.p>
           </section>
 
-          <div className="grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg h-full">
+          <div className="grid lg:grid-cols-3 gap-12 overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
+              className="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg h-full"
+            >
               <h2 className="text-xl font-semibold text-gray-900 mb-6 border-b pb-2">
                 Détails
               </h2>
@@ -91,9 +109,14 @@ function ContactPage() {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="lg:col-span-2 bg-white p-8 rounded-xl shadow-lg">
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
+              className="lg:col-span-2 bg-white p-8 rounded-xl shadow-lg"
+            >
               <h2 className="text-2xl text-gray-900 mb-6 border-b pb-2">
                 Envoyez-nous un Message
               </h2>
@@ -169,7 +192,7 @@ function ContactPage() {
                   Envoyer le Message
                 </button>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -7,6 +7,8 @@ import Modal from "../components/Modal.jsx";
 import SigninForm from "../components/layout/signinForm.jsx";
 import { Link } from "react-router-dom";
 import { handleSignin } from "../utils/authentification.js";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 
 function HomePage({ allBlogs }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,19 +32,51 @@ function HomePage({ allBlogs }) {
       <Header />
       <section className="relative pt-24 pb-32 bg-gray-900 text-white overflow-hidden">
         <div className="container mx-auto px-4 text-center z-10 relative">
-          <h1 className="text-4xl tracking-tight mb-4 space-y-5">
-            <p>Visiter nos publication et nous connaître d'avantage</p>
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.4,
+            }}
+            className="text-4xl tracking-tight mb-4 space-y-5"
+          >
+            <motion.p
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                delay: 0.2,
+              }}
+            >
+              Visiter nos publication et nous connaître d'avantage
+            </motion.p>
             <span className="text-blue-400">YitroBLOG</span>
-          </h1>
-          <p className="text-sm text-gray-300 mb-8 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.4,
+            }}
+            className="text-sm text-gray-300 mb-8 max-w-3xl mx-auto"
+          >
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </p>
-          <Link
-            to="/article"
-            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-blue-600 hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+          </motion.p>
+          <motion.a
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
+            whileHover={{ scale: 1.02 }}
+            href="/article"
+            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-blue-600 hover:bg-blue-700"
           >
             Commencer maintenant <FaArrowRight className="ml-3 h-4 w-4" />
-          </Link>
+          </motion.a>
         </div>
         <div className="absolute inset-0 bg-black opacity-40"></div>
       </section>
@@ -50,22 +84,43 @@ function HomePage({ allBlogs }) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <section className="py-16">
           <h2 className="text-gray-800 mb-8 border-b-2 border-blue-500 pb-2 inline-block">
-            <p className="uppercase">Notre Sélection du Moment :</p>
-            <p className="text-4xl">Trois Articles à Ne Pas Manqué</p>
+            <motion.p
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+              className="uppercase"
+            >
+              Notre Sélection du Moment :
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
+              className="text-4xl"
+            >
+              Trois Articles à Ne Pas Manqué
+            </motion.p>
           </h2>
 
           {featuredBlogs.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredBlogs.map((blog) => (
-                <div
+                <motion.div
+                  initial={{ opacity: 0, y: 100 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    delay: blog.id / 10,
+                  }}
                   key={blog.id}
-                  className="bg-white rounded-xl shadow-xl overflow-hidden group transition duration-300 hover:shadow-2xl"
+                  className="bg-white rounded-xl shadow-xl overflow-hidden group hover:shadow-2xl"
                 >
                   <div className="w-full h-48 relative overflow-hidden">
                     <img
                       src={blog.image}
                       alt={blog.title}
-                      className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover transition group-hover:scale-105 duration-500 "
                     />
                   </div>
 
@@ -85,7 +140,7 @@ function HomePage({ allBlogs }) {
                       Lire la suite <FaArrowRight className="ml-2 h-3 w-3" />
                     </Link>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : (
@@ -95,7 +150,12 @@ function HomePage({ allBlogs }) {
           )}
         </section>
 
-        <section className="py-16">
+        <motion.section
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+          className="py-16"
+        >
           <div className="bg-blue-600 text-white p-10 rounded-xl shadow-2xl flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">
               <h3 className="text-2xl font-bold flex items-center justify-center md:justify-start">
@@ -114,7 +174,7 @@ function HomePage({ allBlogs }) {
               S'inscrire maintenant
             </button>
           </div>
-        </section>
+        </motion.section>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <SigninForm onClose={closeModal} onCreate={handleSignin} />
         </Modal>

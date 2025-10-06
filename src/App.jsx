@@ -1,19 +1,11 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BlogList from "./pages/BlogList.jsx";
-import { FaSpinner } from "react-icons/fa6";
 import BlogDetails from "./pages/BlogDetails.jsx";
 import Loading from "./components/layout/loading.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ServicesPage from "./pages/Service.jsx";
 import ContactPage from "./pages/Contact.jsx";
-
-const ADMIN = {
-  username: "admin",
-  email: "admin@gmail.com",
-  phone: "0343288655",
-  password: "@admin123",
-};
 
 function App() {
   const [blogs, setBlogs] = useState(null);

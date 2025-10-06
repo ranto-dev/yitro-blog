@@ -4,7 +4,7 @@ const SigninForm = ({ onClose, onCreate }) => {
   const [signInfo, setSignInfo] = useState({
     username: "",
     email: "",
-    phone: "",
+    full_name: "",
     password: "",
     conf_password: "",
   });
@@ -25,6 +25,18 @@ const SigninForm = ({ onClose, onCreate }) => {
       <h1 className="text-center text-3xl">Formulaire d'inscription</h1>
       <div className="space-y-2">
         <div>
+          <label htmlFor="full_name">votre nom complet</label>
+          <input
+            type="text"
+            name="full_name"
+            value={signInfo.full_name}
+            onChange={handleChange}
+            id="full_name"
+            className="w-full border border-black/20 rounded-lg p-2"
+            placeholder="ex: Lucas Moreau"
+          />
+        </div>
+        <div>
           <label htmlFor="username">nom d'utilisateur</label>
           <input
             type="text"
@@ -33,7 +45,7 @@ const SigninForm = ({ onClose, onCreate }) => {
             onChange={handleChange}
             id="username"
             className="w-full border border-black/20 rounded-lg p-2"
-            placeholder="ex: john-doe"
+            placeholder="ex: lucas05"
           />
         </div>
         <div>
@@ -45,19 +57,7 @@ const SigninForm = ({ onClose, onCreate }) => {
             onChange={handleChange}
             id="email"
             className="w-full border border-black/20 rounded-lg p-2"
-            placeholder="ex: johndoe@gmail.com"
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">phone</label>
-          <input
-            type="tel"
-            name="phone"
-            value={signInfo.phone}
-            onChange={handleChange}
-            id="phone"
-            className="w-full border border-black/20 rounded-lg p-2"
-            placeholder="ex: 033 23 343 55"
+            placeholder="ex: locas05@gmail.com"
           />
         </div>
         <div>
@@ -69,7 +69,7 @@ const SigninForm = ({ onClose, onCreate }) => {
             onChange={handleChange}
             id="password"
             className="w-full border border-black/20 rounded-lg p-2"
-            placeholder="*****"
+            placeholder="**********"
           />
         </div>
         <div>
@@ -81,7 +81,7 @@ const SigninForm = ({ onClose, onCreate }) => {
             onChange={handleChange}
             id="conf_password"
             className="w-full border border-black/20 rounded-lg p-2"
-            placeholder="*****"
+            placeholder="**********"
           />
         </div>
       </div>
