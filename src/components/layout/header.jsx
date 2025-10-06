@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import Modal from "../Modal.jsx";
 import LoginForm from "./loginForm.jsx";
@@ -7,7 +7,7 @@ import SigninForm from "./signinForm.jsx";
 
 const navLinks = [
   { name: "Accueil", href: "/" },
-  { name: "Articles", href: "/blog" },
+  { name: "Articles", href: "/article" },
   { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
 ];
@@ -61,23 +61,23 @@ const Header = () => {
     <header className="bg-white shadow-lg sticky top-0 z-50 border-b border-gray-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="flex-shrink-0 text-3xl font-extrabold text-blue-700 tracking-tight transition duration-150 hover:text-blue-800"
           >
             YitroBLOG
-          </a>
+          </Link>
 
           {/* Navigation (Desktop) */}
           <nav className="hidden md:flex space-x-6">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-gray-600 font-medium py-2 px-3 rounded-md hover:bg-gray-100 hover:text-blue-600 transition duration-200"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="flex items-center space-x-3">

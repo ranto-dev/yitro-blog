@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import selectRandomObjects from "../utils/selectRandomObjects";
 import { FaArrowRight, FaFeatherAlt } from "react-icons/fa";
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
 import Modal from "../components/Modal.jsx";
 import SigninForm from "../components/layout/signinForm.jsx";
+import { Link } from "react-router-dom";
 
 function HomePage({ allBlogs }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,12 +32,12 @@ function HomePage({ allBlogs }) {
           <p className="text-sm text-gray-300 mb-8 max-w-3xl mx-auto">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
-          <a
-            href="/blog"
+          <Link
+            to="/article"
             className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-blue-600 hover:bg-blue-700 transition duration-300 transform hover:scale-105"
           >
             Commencer maintenant <FaArrowRight className="ml-3 h-4 w-4" />
-          </a>
+          </Link>
         </div>
         <div className="absolute inset-0 bg-black opacity-40"></div>
       </section>
@@ -72,12 +73,12 @@ function HomePage({ allBlogs }) {
                         ? `${blog.content.slice(0, 120)}...`
                         : "Pas de contenu disponible..."}
                     </p>
-                    <a
-                      href={`/blog/${blog.id}`}
+                    <Link
+                      to={`/blog/${blog.id}`}
                       className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
                     >
                       Lire la suite <FaArrowRight className="ml-2 h-3 w-3" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}

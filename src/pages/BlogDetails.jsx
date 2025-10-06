@@ -6,16 +6,23 @@ import {
   FaLinkedin,
   FaTwitter,
 } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import selectRandomObjects from "../utils/selectRandomObjects";
 import { FaCheckCircle } from "react-icons/fa";
 import Header from "../components/layout/header.jsx";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function BlogDetails({ blogs }) {
   const { blogId } = useParams();
   const blog = blogs.find((blog) => blog.id === parseInt(blogId));
   const [randomBlogs, setRandomBlogs] = useState([]);
   const NUMBER_OF_BLOGS = 4;
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => {
+    navigate(`/blog/${id}`);
+  };
 
   useEffect(() => {
     if (blogs && blogs.length > 0) {
@@ -30,13 +37,22 @@ function BlogDetails({ blogs }) {
       <Header />
       <div className="flex justify-center gap-4 p-8">
         <div className="w-full">
-          <div className="w-full">
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.1,
+            }}
+            className="w-full"
+          >
             <img
               src={blog.image}
               alt={"image du publication n°" + blog.id}
               className={`w-full h-[500px] rounded-xl object-cover`}
             />
-          </div>
+          </motion.div>
           <div className="space-y-4 p-4">
             <div className="flex justify-start items-center gap-4">
               <p className="text-4xl">{blog.title}</p>
@@ -117,10 +133,29 @@ function BlogDetails({ blogs }) {
           </div>
         </div>
 
-        <div className="w-[40%] flex flex-col gap-8">
-          <aside className="space-y-4">
-            <h1 className="text-2xl">Catégories</h1>
-            <ul className="flex flex-col gap-2 text-sm">
+        <div className="w-[40%] flex flex-col gap-8 overflow-hidden ">
+          <motion.aside
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.1,
+            }}
+            className="space-y-4 overflow-hidden"
+          >
+            <div className="flex justify-center">
+              <Link
+                to={"/article"}
+                className="rounded-full bg-blue-500 text-white p-4 hover:bg-blue-600 "
+              >
+                Voir tous les publication
+              </Link>
+            </div>
+            <div>
+              <h1 className="text-2xl">Catégories</h1>
+            </div>
+            <ul className="flex flex-col gap-2 text-sm pl-4">
               {blog.categories.map((categorie) => {
                 return (
                   <li className="flex justify-start items-center gap-2">
@@ -130,9 +165,18 @@ function BlogDetails({ blogs }) {
                 );
               })}
             </ul>
-          </aside>
+          </motion.aside>
 
-          <aside className="space-y-4">
+          <motion.aside
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.1,
+            }}
+            className="space-y-4 overflow-hidden"
+          >
             <div className="text-start">
               <h1 className="text-2xl">Autres publications</h1>
               <p className="text-sm">
@@ -140,11 +184,19 @@ function BlogDetails({ blogs }) {
                 d'avantage
               </p>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 overflow-hidden">
               {randomBlogs.map((blog) => (
-                <div
+                <motion.div
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    delay: (blog.id + 1) / 100,
+                  }}
                   key={blog.id}
-                  className="flex justify-start items-center gap-2"
+                  className="flex justify-start items-center gap-2 cursor-pointer"
+                  onClick={() => handleNavigate(blog.id)}
                 >
                   <div className="w-full">
                     <img
@@ -156,10 +208,10 @@ function BlogDetails({ blogs }) {
                   <div className="w-full">
                     <h3 className="text-xl">{blog.title}</h3>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </aside>
+          </motion.aside>
         </div>
       </div>
     </>
