@@ -5,13 +5,15 @@ import EditBlogForm from "../components/EditBlogForm.jsx";
 import CreateBlogForm from "../components/CreateBlogForm.jsx";
 import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/layout/header.jsx";
+import Footer from "../components/layout/footer.jsx";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 
-const BlogList = ({ blogs }) => {
+const BlogList = ({ blogs, isAdmin }) => {
   const [modal, setModal] = useState({ type: null, blog: null });
   const navigate = useNavigate();
   const handleShowClick = (blogId) => {
-    // Navigue vers l'URL /blog/ID_DU_BLOG
-    // Vous devez avoir une route configurée comme <Route path="/blog/:id" element={<BlogDetail />} />
     navigate(`/blog/${blogId}`);
   };
 
@@ -25,16 +27,19 @@ const BlogList = ({ blogs }) => {
 
   const handleCreateBlog = (newBlog) => {
     // code pour insertion
+    console.log("Handleinsert " + newBlog);
     alert("Votre publication a été crée avec success!");
   };
 
   const handleUpdateBlog = (id, updatedData) => {
     // code pour modufication
+    console.log("handleUpdate" + id, updatedData);
     alert("Votre publication a été modifée avec success!");
   };
 
   const handleDeleteBlog = (id) => {
     // code pour insertion
+    console.log("Delete blog id: " + id);
     closeModal();
   };
 
@@ -95,19 +100,30 @@ const BlogList = ({ blogs }) => {
 
   return (
     <>
+      <Header />
       <div className="flex justify-end px-6 mb-4">
         <button
           onClick={() => openModal("create", null)}
-          className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in`}
+          className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${
+                      isAdmin === true ? null : "hidden"
+                    }`}
         >
           <FaPlusCircle />
-          <span>Nouveau publication</span>
+          <span>Nouvelle article</span>
         </button>
       </div>
       <section>
         <div className="w-full grid md:grid-cols-2 gap-6 lg:grid-cols-3 p-6">
           {blogs.map((blog) => (
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                delay: blog.id / 100,
+              }}
+              whileHover={{ scale: 1.02 }}
               key={blog.id}
               className="flex flex-col gap-6 rounded-xl bg-blue-500/10 shadow-xl relative group overflow-hidden"
             >
@@ -121,21 +137,26 @@ const BlogList = ({ blogs }) => {
                   <button
                     onClick={() => openModal("edit", blog)}
                     className={`bg-black/60 cursor-pointer text-amber-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/80`}
+                    transition duration-300 hover:bg-black/80 ${
+                      isAdmin === true ? null : "hidden"
+                    } `}
                   >
                     <FaPen />
                   </button>
                   <button
                     onClick={() => handleShowClick(blog.id)}
                     className={`bg-black/40 cursor-pointer text-blue-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/70`}
+                    transition duration-300 hover:bg-black/70 flex justify-center items-center gap-2`}
                   >
                     <FaEye />
+                    <span className={`${ isAdmin === true ? "hidden" : "block"} }`}>Voir plus</span>
                   </button>
                   <button
                     onClick={() => openModal("delete", blog)}
                     className={`bg-black/20 cursor-pointer text-red-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/60`}
+                    transition duration-300 hover:bg-black/60  ${
+                      isAdmin === true ? null : "hidden"
+                    }`}
                   >
                     <FaTrash />
                   </button>
@@ -145,7 +166,7 @@ const BlogList = ({ blogs }) => {
                   alt={"image du publication n°" + blog.id}
                   className={`w-full h-[300px] rounded-t-xl object-cover border-none 
                   transition-all duration-300 ease-in-out 
-                  group-hover:blur-sm`}
+                  group-hover:blur-xs`}
                 />
               </div>
               <div className="space-y-4 p-4">
@@ -161,7 +182,7 @@ const BlogList = ({ blogs }) => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -169,6 +190,7 @@ const BlogList = ({ blogs }) => {
           {renderModalContent()}
         </Modal>
       </section>
+      <Footer />
     </>
   );
 };
