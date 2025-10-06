@@ -4,6 +4,7 @@ import BlogList from "./pages/BlogList.jsx";
 import { FaSpinner } from "react-icons/fa6";
 import BlogDetails from "./pages/BlogDetails.jsx";
 import Loading from "./components/layout/loading.jsx";
+import HomePage from "./pages/HomePage.jsx";
 
 const ADMIN = {
   username: "admin",
@@ -15,7 +16,7 @@ const ADMIN = {
 function App() {
   const [blogs, setBlogs] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -51,8 +52,9 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<HomePage allBlogs={blogs} />} />
         <Route
-          path="/"
+          path="/article"
           element={<BlogList blogs={blogs} isAdmin={isAdmin} />}
         />
         <Route path="/blog/:blogId" element={<BlogDetails blogs={blogs} />} />
