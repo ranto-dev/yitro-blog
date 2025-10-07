@@ -3,12 +3,17 @@ import { useState } from "react";
 function EditBlogForm({ blog, onClose, onSave }) {
   const [form, setForm] = useState({
     title: blog.title,
-    content: blog.content,
+    content: blog.excerpt,
+    star: blog.star,
+    category: blog.category,
     image: blog.image,
+    date: blog.datePublication,
+    author_id: blog.author_id
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(form)
   };
 
   const handleSubmit = (e) => {
@@ -27,18 +32,28 @@ function EditBlogForm({ blog, onClose, onSave }) {
         placeholder="Titre"
         className="w-full border p-2 rounded"
       />
+      <input
+        name="category"
+        value={form.category}
+        onChange={handleChange}
+        placeholder="Catégorie"
+        className="w-full border p-2 rounded"
+      />
       <textarea
-        name="content"
+        name="excerpt"
         value={form.content}
         onChange={handleChange}
         placeholder="Contenu"
         className="w-full border p-2 rounded h-32"
       />
+      
       <input
-        name="image"
-        value={form.image}
+        name="star"
+        type="number"
+        max={5}
+        value={form.star}
         onChange={handleChange}
-        placeholder="URL image"
+        placeholder="Nbr étoile"
         className="w-full border p-2 rounded"
       />
       <div className="flex gap-4">
