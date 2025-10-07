@@ -13,14 +13,30 @@ import Header from "../components/layout/header.jsx";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+export const Month = [
+  "Janvier",
+  "Février",
+  "Mars",
+  "Avril",
+  "Mai",
+  "Juin",
+  "Juillet",
+  "Aout",
+  "Septembre",
+  "Octobre",
+  "Novembre",
+  "Décembre"
+]
 
 const BlogDetails = ({ blogs }) => {
   const { blogId } = useParams();
   const blog = blogs.find((blog) => blog.id === parseInt(blogId));
   const [randomBlogs, setRandomBlogs] = useState([]);
+  let formatedDate = new Date(blog.datePublication)
+
   const NUMBER_OF_BLOGS = 4;
   const navigate = useNavigate();
-
+  const [imageAnnexe, setImageAnnexe] = useState([])
   const handleNavigate = (id) => {
     navigate(`/blog/${id}`);
   };
@@ -32,6 +48,14 @@ const BlogDetails = ({ blogs }) => {
       setRandomBlogs(selected);
     }
   }, [blogs]);
+  useEffect(()=>{
+    fetch('http://blog.yitro-consulting.com/image/annexe/article/'+blogId)
+    .then(res=>res.json())
+    .then(res=>{
+      console.log(res)
+      setImageAnnexe(res)
+    })
+  },[blogId])
 
   return (
     <>
@@ -49,7 +73,7 @@ const BlogDetails = ({ blogs }) => {
             className="w-full"
           >
             <img
-              src={blog.image}
+              src={"http://blog.yitro-consulting.com/static/"+blog.image}
               alt={"image du publication n°" + blog.id}
               className={`w-full h-[500px] rounded-xl object-cover`}
             />
@@ -61,11 +85,11 @@ const BlogDetails = ({ blogs }) => {
             </div>
             <div className="flex flex-col items-start space-y-8">
               <p className="flex gap-2 justify-center items-center text-gray-500">
-                <FaCalendar /> {blog.date}
+                <FaCalendar /> {`${formatedDate.getDate()} ${Month[formatedDate.getMonth() ]} ${formatedDate.getFullYear()}`}
               </p>
               <div className="space-y-4">
                 <p className="text-black/60 text-justify">{blog.excerpt}</p>
-                <p className="text-black/60 text-justify">
+                {/* <p className="text-black/60 text-justify">
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                   Eveniet sit voluptate, temporibus incidunt fugiat ipsa
                   accusantium non deserunt sunt recusandae ducimus eos deleniti
@@ -74,17 +98,17 @@ const BlogDetails = ({ blogs }) => {
                   temporibus incidunt fugiat ipsa accusantium non deserunt sunt
                   recusandae ducimus eos deleniti cum a maxime labore unde
                   similique enim!
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
           <div className="w-full p-5 flex justify-center items-center gap-4">
-            {blog.image_annexe.map((image, index) => {
+            {imageAnnexe.map((image, index) => {
               return (
                 <img
                   key={index}
                   className="w-[100%] h-[250px] object-cover rounded-xl "
-                  src={image}
+                  src={"https://blog.yitro-consulting.com/static/"+image.path}
                   alt={"image annexe n° " + index}
                 />
               );
@@ -148,7 +172,7 @@ const BlogDetails = ({ blogs }) => {
           >
             <div className="flex justify-center">
               <Link
-                to={"/article"}
+                to={"/articles"}
                 className="rounded-full bg-blue-500 text-white p-4 hover:bg-blue-600 "
               >
                 Voir tous les publication
@@ -204,7 +228,7 @@ const BlogDetails = ({ blogs }) => {
                 >
                   <div className="w-full">
                     <img
-                      src={blog.image}
+                      src={"https://blog.yitro-consulting.com/static/"+blog.image}
                       className="w-full h-24 object-cover rounded-lg"
                       alt={"image de la publication n° " + blog.id}
                     />

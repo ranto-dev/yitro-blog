@@ -9,10 +9,14 @@ import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { Month } from "./BlogDetails.jsx";
+import { PiPictureInPicture } from "react-icons/pi";
+import ImageAnnexeForm from "../components/ImageAnnexeForm.jsx";
 
 const BlogList = ({ blogs, isAdmin }) => {
   const [modal, setModal] = useState({ type: null, blog: null });
   const navigate = useNavigate();
+
   const openModal = (type, blog) => {
     setModal({ type, blog });
   };
@@ -23,19 +27,67 @@ const BlogList = ({ blogs, isAdmin }) => {
 
   const handleCreateBlog = (newBlog) => {
     // code pour insertion
-    console.log("Handleinsert " + newBlog);
-    alert("Votre publication a été crée avec success!");
+    console.log(newBlog);
+    fetch("https://blog.yitro-consulting.com/article", {
+      method: "POST",
+      headers: {
+        "authorization" : "Bearer "+ window.localStorage.getItem("access_token")
+      },
+      body: newBlog
+    })
+      .then(res => res.json())
+      .then(res =>{
+        console.log(res)
+        alert("Votre publication a été crée avec success!");
+        window.location.reload()
+      })
+      .catch(err => console.error(err))
+
+
+    
   };
 
   const handleUpdateBlog = (id, updatedData) => {
-    // code pour modufication
+    // code pour modification
     console.log("handleUpdate" + id, updatedData);
+    fetch("https://blog.yitro-consulting.com/article/"+id, {
+      method:"PUT",
+      headers: {
+        "content-type": "application/json",
+        "authorization": "Bearer "+window.localStorage.getItem("access_token")
+      },
+      body: JSON.stringify({
+        title: updatedData.title,
+        content: updatedData.excerpt,
+        star: updatedData.star,
+        category: updatedData.category.split(","),
+        image: updatedData.image,
+        date: updatedData.datePublication,
+        author_id: updatedData.author_id
+      })
+    }).then(res=>res.json())
+    .then(res=>{
+      window.location.reload()
+    })
+    .catch(err=>console.error(err))
+
     alert("Votre publication a été modifée avec success!");
   };
 
   const handleDeleteBlog = (id) => {
     // code pour insertion
     console.log("Delete blog id: " + id);
+    fetch("https://blog.yitro-consulting.com/article/"+id, {
+      method: "DELETE",
+      headers: {
+        "authorization": "Bearer "+window.localStorage.getItem("access_token")
+      }
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      window.location.reload()
+    })
+    .catch(err=>console.error(err))
     closeModal();
   };
 
@@ -60,7 +112,10 @@ const BlogList = ({ blogs, isAdmin }) => {
             />
           )
         );
-
+      case "imageAnnexe":
+        return (
+          blog && <ImageAnnexeForm onClose={closeModal} blog={blog}/>
+        )
       case "delete":
         return (
           blog && (
@@ -100,9 +155,8 @@ const BlogList = ({ blogs, isAdmin }) => {
       <div className="flex justify-end px-6 mb-4">
         <button
           onClick={() => openModal("create", null)}
-          className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${
-            isAdmin === true ? null : "hidden"
-          }`}
+          className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${isAdmin === true ? null : "hidden"
+            }`}
         >
           <FaPlusCircle />
           <span>Nouvelle article</span>
@@ -133,11 +187,18 @@ const BlogList = ({ blogs, isAdmin }) => {
                   <button
                     onClick={() => openModal("edit", blog)}
                     className={`bg-black/60 cursor-pointer text-amber-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/80 ${
-                      isAdmin === true ? null : "hidden"
-                    } `}
+                    transition duration-300 hover:bg-black/80 ${isAdmin === true ? null : "hidden"
+                      } `}
                   >
                     <FaPen />
+                  </button>
+                  <button
+                    onClick={() => openModal("imageAnnexe", blog)}
+                    className={`bg-black/60 cursor-pointer text-amber-500 p-2 rounded-full text-lg 
+                    transition duration-300 hover:bg-black/80 ${isAdmin === true ? null : "hidden"
+                      } `}
+                  >
+                    <PiPictureInPicture />
                   </button>
                   <a
                     href={`/blog/${blog.id}`}
@@ -154,15 +215,14 @@ const BlogList = ({ blogs, isAdmin }) => {
                   <button
                     onClick={() => openModal("delete", blog)}
                     className={`bg-black/20 cursor-pointer text-red-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/60  ${
-                      isAdmin === true ? null : "hidden"
-                    }`}
+                    transition duration-300 hover:bg-black/60  ${isAdmin === true ? null : "hidden"
+                      }`}
                   >
                     <FaTrash />
                   </button>
                 </div>
                 <img
-                  src={blog.image}
+                  src={"https://blog.yitro-consulting.com/static/" + blog.image}
                   alt={"image du publication n°" + blog.id}
                   className={`w-full h-[300px] rounded-t-xl object-cover border-none 
                   transition-all duration-300 ease-in-out 
@@ -178,7 +238,7 @@ const BlogList = ({ blogs, isAdmin }) => {
                 <div className="flex justify-between items-center">
                   <p>{"⭐".repeat(blog.star)}</p>
                   <p className="flex gap-2 justify-center items-center text-gray-500">
-                    <FaCalendar /> {blog.date}
+                    <FaCalendar /> {new Date(blog.datePublication).getDate()} {Month[new Date(blog.datePublication).getMonth()]} {new Date(blog.datePublication).getFullYear()}
                   </p>
                 </div>
               </div>

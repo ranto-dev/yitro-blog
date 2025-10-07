@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import Modal from "../Modal.jsx";
 import LoginForm from "./loginForm.jsx";
 import SigninForm from "./signinForm.jsx";
-import { handleLogin, handleSignin } from "../../utils/authentification.js";
+import { handleSignin } from "../../utils/authentification.js";
 import { motion } from "framer-motion";
+import { handleLogin, useLocalStorage } from "../../App.jsx";
+import { BiLogOut } from "react-icons/bi";
 
 const navLinks = [
   { name: "Accueil", href: "/" },
@@ -17,6 +19,21 @@ const navLinks = [
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState({ type: null, blog: null });
+  const [connected, setConnected] = useLocalStorage('connected', false)
+
+  const [users_id, setUsersID] = useLocalStorage('users_id', 0)
+  const [users_full_name, setUsersFullName] = useLocalStorage('users_full_name', "")
+  const [users_username, setUsersUsername] = useLocalStorage('users_username', "")
+  const [admin, setAdmin] = useLocalStorage("isAdmin", false)
+
+  const LogOut = (e)=>{
+    setUsersID(0)
+    setUsersFullName("")
+    setUsersUsername("")
+    setConnected(false)
+    setAdmin(false)
+    window.location.reload()
+  }
 
   const openModal = (type) => {
     setModal({ type });
@@ -84,23 +101,31 @@ const Header = () => {
             transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
             className="flex items-center space-x-3"
           >
-            <div className="hidden md:flex space-x-3">
-              <button
-                onClick={() => openModal("login")}
-                className="flex items-center px-4 py-2 border border-blue-600 text-sm font-medium rounded-lg text-blue-600 hover:bg-blue-50 transition duration-150"
-              >
-                <FaSignInAlt className="mr-2 h-4 w-4" />
-                Connexion
-              </button>
+            {
+              !connected ? <div className="hidden md:flex space-x-3">
+                <button
+                  onClick={() => openModal("login")}
+                  className="flex items-center px-4 py-2 border border-blue-600 text-sm font-medium rounded-lg text-blue-600 hover:bg-blue-50 transition duration-150"
+                >
+                  <FaSignInAlt className="mr-2 h-4 w-4" />
+                  Connexion
+                </button>
 
-              <button
-                onClick={() => openModal("signin")}
+                <button
+                  onClick={() => openModal("signin")}
+                  className="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition duration-150"
+                >
+                  <FaUserPlus className="mr-2 h-4 w-4" />
+                  Inscription
+                </button>
+              </div> : <button
+                onClick={LogOut}
                 className="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition duration-150"
               >
-                <FaUserPlus className="mr-2 h-4 w-4" />
-                Inscription
+                <BiLogOut className="mr-2 h-4 w-4" />
+                Déconnexion
               </button>
-            </div>
+            }
 
             <div className="md:hidden">
               <button
@@ -121,9 +146,8 @@ const Header = () => {
 
       {/* Menu mobile (Transition pour un effet slide) */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        }`}
+        className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          }`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50 border-t border-gray-200">
           {navLinks.map((link) => (
@@ -159,6 +183,7 @@ const Header = () => {
       <Modal isOpen={modal.type !== null} onClose={closeModal}>
         {renderModalContentAuth()}
       </Modal>
+
     </header>
   );
 };

@@ -1,22 +1,25 @@
 import { useState } from "react";
 
 function CreateBlogForm({ onClose, onCreate }) {
-  const [form, setForm] = useState({
-    title: "",
-    content: "",
-    image: "",
-    date: new Date().toLocaleDateString(),
-  });
+  // const [form, setForm] = useState({
+  //   title: "",
+  //   content: "",
+  //   image: "",
+  //   date: new Date().toLocaleDateString(),
+  // });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.title || !form.content)
-      return alert("Tous les champs sont requis !");
-    onCreate(form);
+    // if (!form.title || !form.content)
+    //   return alert("Tous les champs sont requis !");
+    let formData = new FormData(e.target)
+    formData.set("date", new Date().toISOString())
+    formData.set("author_id", window.localStorage.getItem('users_id'))
+    onCreate(formData);
     onClose();
   };
 
@@ -25,23 +28,32 @@ function CreateBlogForm({ onClose, onCreate }) {
       <h2 className="text-xl font-bold mb-2">Ajouter un nouveau blog</h2>
       <input
         name="title"
-        value={form.title}
-        onChange={handleChange}
         placeholder="Titre"
         className="w-full border p-2 rounded"
+        required
+      />
+      <input
+        name="category"
+        placeholder="Category1,Category2"
+        className="w-full border p-2 rounded"
+        required
       />
       <textarea
-        name="content"
-        value={form.content}
-        onChange={handleChange}
+        name="excerpt"
         placeholder="Contenu"
         className="w-full border p-2 rounded h-32"
+        required
       />
       <input
         name="image"
-        value={form.image}
-        onChange={handleChange}
+        type="file"
         placeholder="URL de l’image"
+        className="w-full border p-2 rounded"
+      />
+      <input
+        name="star"
+        type="number"
+        placeholder="Nb Etoile"
         className="w-full border p-2 rounded"
       />
       <div className="flex gap-4">

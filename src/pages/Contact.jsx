@@ -12,6 +12,26 @@ import Footer from "../components/layout/footer.jsx";
 import { motion } from "framer-motion";
 
 function ContactPage() {
+  const sumbmitMail = (e)=>{
+    e.preventDefault()
+    let formData = new FormData(e.target)
+    fetch("https://blog.yitro-consulting.com/email", {
+      method:"POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        sender: formData.get("sender"),
+        content: formData.get("content"),
+        name: formData.get("name"),
+        subject: formData.get("subject")
+      })
+    }).then(res=>res.json())
+    .then(res=>{
+      alert("Email send")
+    })
+    .catch(err=>console.error(err))
+  }
   return (
     <>
       <Header />
@@ -120,7 +140,7 @@ function ContactPage() {
               <h2 className="text-2xl text-gray-900 mb-6 border-b pb-2">
                 Envoyez-nous un Message
               </h2>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={sumbmitMail}>
                 <div>
                   <label
                     htmlFor="name"
@@ -146,7 +166,7 @@ function ContactPage() {
                   </label>
                   <input
                     type="email"
-                    name="email"
+                    name="sender"
                     id="email"
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg"
@@ -177,7 +197,7 @@ function ContactPage() {
                     Votre Message
                   </label>
                   <textarea
-                    name="message"
+                    name="content"
                     id="message"
                     rows="4"
                     required
