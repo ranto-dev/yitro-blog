@@ -42,9 +42,6 @@ const BlogList = ({ blogs, isAdmin }) => {
         window.location.reload()
       })
       .catch(err => console.error(err))
-
-
-    
   };
 
   const handleUpdateBlog = (id, updatedData) => {

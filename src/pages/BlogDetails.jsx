@@ -48,6 +48,7 @@ const BlogDetails = ({ blogs }) => {
       setRandomBlogs(selected);
     }
   }, [blogs]);
+  
   useEffect(()=>{
     fetch('http://blog.yitro-consulting.com/image/annexe/article/'+blogId)
     .then(res=>res.json())

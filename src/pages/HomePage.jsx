@@ -72,7 +72,7 @@ function HomePage({ allBlogs }) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
             whileHover={{ scale: 1.02 }}
-            href="/article"
+            href="/articles"
             className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-blue-600 hover:bg-blue-700"
           >
             Commencer maintenant <FaArrowRight className="ml-3 h-4 w-4" />
@@ -118,7 +118,9 @@ function HomePage({ allBlogs }) {
                 >
                   <div className="w-full h-48 relative overflow-hidden">
                     <img
-                      src={"http://blog.yitro-consulting.com/static/"+blog.image}
+                      src={
+                        "http://blog.yitro-consulting.com/static/" + blog.image
+                      }
                       alt={blog.title}
                       className="w-full h-full object-cover transition group-hover:scale-105 duration-500 "
                     />
