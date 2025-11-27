@@ -118,10 +118,8 @@ function HomePage({ allBlogs }) {
                 >
                   <div className="w-full h-48 relative overflow-hidden">
                     <img
-                      src={
-                        "http://blog.yitro-consulting.com/static/" + blog.image
-                      }
-                      alt={blog.title}
+                      src={blog.main_image_url}
+                      alt={blog.image_alt_text}
                       className="w-full h-full object-cover transition group-hover:scale-105 duration-500 "
                     />
                   </div>
@@ -131,8 +129,8 @@ function HomePage({ allBlogs }) {
                       {blog.title}
                     </h3>
                     <p className="text-gray-600 text-sm">
-                      {blog.excerpt
-                        ? `${blog.excerpt.slice(0, 120)}...`
+                      {blog.meta_title
+                        ? `${blog.meta_title.slice(0, 200)}...`
                         : "Pas de contenu disponible..."}
                     </p>
                     <Link

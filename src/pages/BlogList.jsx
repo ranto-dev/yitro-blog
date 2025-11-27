@@ -4,7 +4,6 @@ import Modal from "../components/Modal.jsx";
 import EditBlogForm from "../components/EditBlogForm.jsx";
 import CreateBlogForm from "../components/CreateBlogForm.jsx";
 import { FaPlusCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
 // eslint-disable-next-line no-unused-vars
@@ -15,7 +14,6 @@ import ImageAnnexeForm from "../components/ImageAnnexeForm.jsx";
 
 const BlogList = ({ blogs, isAdmin }) => {
   const [modal, setModal] = useState({ type: null, blog: null });
-  const navigate = useNavigate();
 
   const openModal = (type, blog) => {
     setModal({ type, blog });
@@ -26,47 +24,52 @@ const BlogList = ({ blogs, isAdmin }) => {
   };
 
   const handleCreateBlog = (newBlog) => {
-    // code pour insertion
     console.log(newBlog);
     fetch("https://blog.yitro-consulting.com/article", {
       method: "POST",
       headers: {
-        "authorization" : "Bearer "+ window.localStorage.getItem("access_token")
+        authorization: "Bearer " + window.localStorage.getItem("access_token"),
       },
-      body: newBlog
+      body: newBlog,
     })
-      .then(res => res.json())
-      .then(res =>{
-        console.log(res)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
         alert("Votre publication a été crée avec success!");
-        window.location.reload()
+        window.location.reload();
       })
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err));
   };
 
   const handleUpdateBlog = (id, updatedData) => {
-    // code pour modification
     console.log("handleUpdate" + id, updatedData);
-    fetch("https://blog.yitro-consulting.com/article/"+id, {
-      method:"PUT",
+    fetch("https://blog.yitro-consulting.com/article/" + id, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
-        "authorization": "Bearer "+window.localStorage.getItem("access_token")
+        authorization: "Bearer " + window.localStorage.getItem("access_token"),
       },
       body: JSON.stringify({
-        title: updatedData.title,
-        content: updatedData.excerpt,
-        star: updatedData.star,
-        category: updatedData.category.split(","),
-        image: updatedData.image,
-        date: updatedData.datePublication,
-        author_id: updatedData.author_id
-      })
-    }).then(res=>res.json())
-    .then(res=>{
-      window.location.reload()
+        meta_title: updatedData.meta_title,
+        content_h1: updatedData.content_h1,
+        content_body: updatedData.content_body,
+        slug: updatedData.slug,
+        main_image_url: updatedData.main_image_url,
+        image_alt_text: updatedData.image_alt_text,
+        meta_description: updatedData.meta_description,
+        meta_keywords: updatedData.meta_keywords,
+        publication_date: updatedData.publication_date,
+        seo_score: updatedData.seo_score,
+        is_published: updatedData.is_published,
+        author_id: updatedData.author_id,
+      }),
     })
-    .catch(err=>console.error(err))
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((err) => console.error(err));
 
     alert("Votre publication a été modifée avec success!");
   };
@@ -74,17 +77,17 @@ const BlogList = ({ blogs, isAdmin }) => {
   const handleDeleteBlog = (id) => {
     // code pour insertion
     console.log("Delete blog id: " + id);
-    fetch("https://blog.yitro-consulting.com/article/"+id, {
+    fetch("https://blog.yitro-consulting.com/article/" + id, {
       method: "DELETE",
       headers: {
-        "authorization": "Bearer "+window.localStorage.getItem("access_token")
-      }
+        authorization: "Bearer " + window.localStorage.getItem("access_token"),
+      },
     })
-    .then(res=>res.json())
-    .then(res=>{
-      window.location.reload()
-    })
-    .catch(err=>console.error(err))
+      .then((res) => res.json())
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => console.error(err));
     closeModal();
   };
 
@@ -110,9 +113,7 @@ const BlogList = ({ blogs, isAdmin }) => {
           )
         );
       case "imageAnnexe":
-        return (
-          blog && <ImageAnnexeForm onClose={closeModal} blog={blog}/>
-        )
+        return blog && <ImageAnnexeForm onClose={closeModal} blog={blog} />;
       case "delete":
         return (
           blog && (
@@ -121,7 +122,8 @@ const BlogList = ({ blogs, isAdmin }) => {
                 Supprimer le blog
               </h2>
               <p>
-                Voulez-vous vraiment supprimer <strong>{blog.title}</strong> ?
+                Voulez-vous vraiment supprimer{" "}
+                <strong>{blog.meta_title}</strong> ?{" "}
               </p>
               <div className="mt-4 flex gap-4">
                 <button
@@ -152,8 +154,9 @@ const BlogList = ({ blogs, isAdmin }) => {
       <div className="flex justify-end px-6 mb-4">
         <button
           onClick={() => openModal("create", null)}
-          className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${isAdmin === true ? null : "hidden"
-            }`}
+          className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${
+            isAdmin === true ? null : "hidden"
+          }`}
         >
           <FaPlusCircle />
           <span>Nouvelle article</span>
@@ -181,24 +184,27 @@ const BlogList = ({ blogs, isAdmin }) => {
                  transform translate-y-4 group-hover:translate-y-0
                  transition-all duration-300 ease-in-out`}
                 >
+                  {/* ... boutons d'administration ... */}
                   <button
                     onClick={() => openModal("edit", blog)}
                     className={`bg-black/60 cursor-pointer text-amber-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/80 ${isAdmin === true ? null : "hidden"
-                      } `}
+                    transition duration-300 hover:bg-black/80 ${
+                      isAdmin === true ? null : "hidden"
+                    } `}
                   >
                     <FaPen />
                   </button>
                   <button
                     onClick={() => openModal("imageAnnexe", blog)}
                     className={`bg-black/60 cursor-pointer text-amber-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/80 ${isAdmin === true ? null : "hidden"
-                      } `}
+                    transition duration-300 hover:bg-black/80 ${
+                      isAdmin === true ? null : "hidden"
+                    } `}
                   >
                     <PiPictureInPicture />
                   </button>
                   <a
-                    href={`/blog/${blog.id}`}
+                    href={`/blog/${blog.slug}`}
                     className={`bg-black/40 cursor-pointer text-blue-500 p-2 rounded-full text-lg 
                     transition duration-300 hover:bg-black/70 flex justify-center items-center gap-2`}
                   >
@@ -212,30 +218,34 @@ const BlogList = ({ blogs, isAdmin }) => {
                   <button
                     onClick={() => openModal("delete", blog)}
                     className={`bg-black/20 cursor-pointer text-red-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/60  ${isAdmin === true ? null : "hidden"
-                      }`}
+                    transition duration-300 hover:bg-black/60  ${
+                      isAdmin === true ? null : "hidden"
+                    }`}
                   >
                     <FaTrash />
                   </button>
                 </div>
                 <img
-                  src={"https://blog.yitro-consulting.com/static/" + blog.image}
-                  alt={"image du publication n°" + blog.id}
+                  src={blog.main_image_url}
+                  alt={blog.image_alt_text || "Image de l'article n°" + blog.id}
                   className={`w-full h-[300px] rounded-t-xl object-cover border-none 
                   transition-all duration-300 ease-in-out 
                   group-hover:blur-xs`}
                 />
               </div>
               <div className="space-y-4 p-4">
-                <p className="text-2xl">{blog.title}</p>
+                <p className="text-2xl">{blog.meta_title || blog.content_h1}</p>{" "}
                 <p>
-                  {blog.excerpt.slice(0, 100)}
-                  {blog.excerpt.length <= 100 ? null : "..."}
+                  {blog.content_body?.slice(0, 100)}
+                  {blog.content_body?.length <= 100 ? null : "..."}
                 </p>
                 <div className="flex justify-between items-center">
-                  <p>{"⭐".repeat(blog.star)}</p>
+                  <p>{isAdmin && `SEO Score: ${blog.seo_score}%`}</p>{" "}
                   <p className="flex gap-2 justify-center items-center text-gray-500">
-                    <FaCalendar /> {new Date(blog.datePublication).getDate()} {Month[new Date(blog.datePublication).getMonth()]} {new Date(blog.datePublication).getFullYear()}
+                    <FaCalendar />
+                    {new Date(blog.publication_date).getDate()}
+                    {Month[new Date(blog.publication_date).getMonth()]}
+                    {new Date(blog.publication_date).getFullYear()}
                   </p>
                 </div>
               </div>
