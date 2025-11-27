@@ -204,7 +204,7 @@ const BlogList = ({ blogs, isAdmin }) => {
                     <PiPictureInPicture />
                   </button>
                   <a
-                    href={`/blog/${blog.slug}`}
+                    href={`/blog/${blog.id}`}
                     className={`bg-black/40 cursor-pointer text-blue-500 p-2 rounded-full text-lg 
                     transition duration-300 hover:bg-black/70 flex justify-center items-center gap-2`}
                   >
