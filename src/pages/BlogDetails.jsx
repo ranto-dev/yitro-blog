@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  FaCalendar,
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-} from "react-icons/fa6";
+import { FaCalendar, FaFacebook, FaLinkedin } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import selectRandomObjects from "../utils/selectRandomObjects";
 import { FaCheckCircle } from "react-icons/fa";
@@ -13,6 +7,7 @@ import Header from "../components/layout/header.jsx";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+// eslint-disable-next-line react-refresh/only-export-components
 export const Month = [
   "Janvier",
   "Février",
@@ -52,13 +47,15 @@ const BlogDetails = ({ blogs }) => {
   return (
     <>
       <Header />
-      <div className="flex justify-center gap-4 p-8">
+      <div className="flex justify-center flex-col lg:flex-row gap-4 p-10">
         {/**
          * Left continer
          */}
         <div className="w-full space-y-4">
           <div>
-            <p className="text-4xl text-justify">{blog.meta_title}</p>
+            <p className="text-2xl xl:text-4xl text-justify">
+              {blog.meta_title}
+            </p>
           </div>
 
           <div className="space-y-4">
@@ -89,7 +86,7 @@ const BlogDetails = ({ blogs }) => {
           </motion.div>
 
           <div className="space-y-4 p-4">
-            <p className="flex gap-2 justify-start items-center text-gray-500">
+            <p className="flex gap-2 justify-end items-center text-gray-500">
               <FaCalendar />{" "}
               {`${formatedDate.getDate()} ${
                 Month[formatedDate.getMonth()]
@@ -98,18 +95,35 @@ const BlogDetails = ({ blogs }) => {
           </div>
 
           <div className="space-y-4">
-            <p className="text-black/60 text-justify">
+            <p className="text-black/60 text-xl text-justify">
               {blog.meta_description}
             </p>
-            <span> {blog.slug} </span>
+          </div>
+
+          <div className="text-gray-500/80">
+            <p>{blog.content_body}</p>
           </div>
 
           <div>
-            <p>{blog.content_body}</p>
+            Identifiant URL: <span className="text-blue-500">{blog.slug} </span>
           </div>
 
           <div className="space-y-4 mt-8">
             <h1 className="text-2xl">Encore plus sur nous</h1>
+            <p className="text-gray-500/80">
+              Vous avez entre les mains une innovation majeure, comme le verre
+              réfrigérant ou le métamatériau microphotonique, capable de
+              transformer l'habitat et l'agriculture. Ces articles ne sont qu'un
+              début. Si votre projet vise à intégrer de telles technologies, à
+              optimiser votre performance énergétique ou à révolutionner votre
+              secteur, c'est maintenant qu'il faut en parler. Partagez votre
+              projet : discutons de vos objectifs, des défis spécifiques que
+              vous rencontrez, et de la manière dont ces innovations peuvent
+              être concrétisées. Que vous soyez dans la construction,
+              l'immobilier, ou l'énergie, un dialogue peut transformer une
+              simple idée en une réalité durable et rentable. Quel est le
+              prochain grand pas que vous envisagez ?
+            </p>
             <div className="flex gap-8 justify-between items-center">
               <div>
                 <button className="bg-blue-500 text-white font-semibold rounded-full p-4 box-border hover:bg-blue-600 hover:-translate-y-2 duration-150 ease-in ">
@@ -119,26 +133,13 @@ const BlogDetails = ({ blogs }) => {
               <div className="flex gap-8">
                 <a
                   href="#"
-                  className="bg-amber-500/10 text-amber-500 rounded-full p-2 hover:bg-amber-500/40"
+                  className="bg-blue-500/10 text-blue-500 rounded-full p-2 hover:bg-blue-500/40"
                 >
                   <FaFacebook />
                 </a>
                 <a
-                  href="#"
-                  className="bg-blue-500/10 text-blue-500 rounded-full p-2 hover:bg-blue-500/40"
-                >
-                  <FaTwitter />
-                </a>
-                <a
                   href=""
-                  className="bg-green-500/10 text-green-500 rounded-full p-2 hover:bg-green-500/40"
-                >
-                  {" "}
-                  <FaInstagram />
-                </a>
-                <a
-                  href=""
-                  className="bg-black/10 text-black rounded-full p-2 hover:bg-black/40"
+                  className="bg-amber-500/10 text-amber-500 rounded-full p-2 hover:bg-amber-500/40"
                 >
                   <FaLinkedin />
                 </a>
@@ -150,7 +151,7 @@ const BlogDetails = ({ blogs }) => {
         {/**
          * Right container
          */}
-        <div className="w-[40%] flex flex-col gap-8 overflow-hidden ">
+        <div className="w-full lg:w-[50%] xl:w-[40%] flex flex-col gap-8 overflow-hidden ">
           <motion.aside
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
@@ -176,7 +177,6 @@ const BlogDetails = ({ blogs }) => {
               <ul className="flex flex-col gap-2 text-sm pl-4">
                 {blog.meta_keywords.split(",").map((keyword, index) => {
                   const trimmedKeyword = keyword.trim();
-                  // Optionnel : on peut ajouter l'icône FaCheckCircle pour le style
                   return (
                     <li
                       key={index}
@@ -224,12 +224,13 @@ const BlogDetails = ({ blogs }) => {
                   <div className="w-full">
                     <img
                       src={blog.main_image_url}
-                      className="w-full h-24 object-cover rounded-lg"
+                      className="w-full h-[200px] lg:h-24 object-cover rounded-lg"
                       alt={blog.image_alt_text}
                     />
                   </div>
-                  <div className="w-full">
-                    <h3 className="text-xl">{blog.meta_title}</h3>
+                  <div className="w-full space-y-4">
+                    <h3 className="text-xl lg:text-[15px]">{blog.meta_title}</h3>
+                    <p className="text-sm lg:hidden">{blog.meta_description.slice(0, 100)} ...</p>
                   </div>
                 </motion.div>
               ))}

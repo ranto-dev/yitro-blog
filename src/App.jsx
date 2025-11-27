@@ -61,7 +61,6 @@ function App() {
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log("verif", res);
             if (res.role === "admin") {
               console.log("admin");
               setUsersID(res.id);
@@ -91,7 +90,6 @@ function App() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("verif cred", res);
         if (res.detail === "Could not validate credentials") {
           console.log("admin");
           setUsersID(0);

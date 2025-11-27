@@ -65,7 +65,7 @@ function HomePage({ allBlogs }) {
             }}
             className="text-sm text-gray-300 mb-8 max-w-3xl mx-auto"
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Une espace dédiée pour apprendre plus sur nos activités et nos originalités
           </motion.p>
           <motion.a
             initial={{ opacity: 0, scale: 0.5 }}
