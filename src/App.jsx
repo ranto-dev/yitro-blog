@@ -26,7 +26,8 @@ function App() {
   const [blogs, setBlogs] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [admin, setAdmin] = useLocalStorage("isAdmin", false);
-  const [isAdmin, setIsAdmin] = useState(admin);
+  //const [isAdmin, setIsAdmin] = useState(admin);
+  const [isAdmin, setIsAdmin] = useState(true);
   const [users_id, setUsersID] = useLocalStorage("users_id", 0);
   const [users_full_name, setUsersFullName] = useLocalStorage(
     "users_full_name",
