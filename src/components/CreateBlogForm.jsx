@@ -12,11 +12,11 @@ function CreateBlogForm({ onClose, onCreate }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="form-title">
         <h2 className="text-xl text-center font-bold mb-2">
-          Ajouter un nouveau blog
+          Ajouter un nouveau article
         </h2>
       </div>
       <div className="form-input space-y-4 text-sm">
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="slug">Slug(Séparer chaque mot par un "-")</label>
           <input
             type="text"
@@ -25,7 +25,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             className="w-full border border-neutral-500/20 p-2 rounded"
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="meta_title">Titre</label>
           <input
             type="text"
@@ -35,7 +35,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="meta_description">Description</label>
           <textarea
             name="meta_description"
@@ -44,7 +44,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="meta_keywords">
             Mots cléfs(Séparer chaque mots par une virgule)
           </label>
@@ -56,7 +56,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="content_h1">Contenu h1</label>
           <input
             type="text"
@@ -66,7 +66,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="content_body">Contenu corps</label>
           <textarea
             name="content_body"
@@ -75,7 +75,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="main_image_url">Image principale</label>
           <input
             type="file"
@@ -85,7 +85,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="image_alt_text">Alt de l'image</label>
           <input
             type="text"
@@ -95,7 +95,7 @@ function CreateBlogForm({ onClose, onCreate }) {
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="seo_score">SEO Score</label>
           <input
             type="number"
