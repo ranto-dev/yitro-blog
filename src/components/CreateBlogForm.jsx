@@ -76,7 +76,9 @@ function CreateBlogForm({ onClose, onCreate }) {
           />
         </div>
         <div className="flex flex-col gap-1 ">
-          <label htmlFor="main_image_url">Image principale</label>
+          <label htmlFor="main_image_url">
+            Choisir l'image principale (Format png et jpg seulement)
+          </label>
           <input
             type="file"
             name="main_image_url"
@@ -86,7 +88,7 @@ function CreateBlogForm({ onClose, onCreate }) {
           />
         </div>
         <div className="flex flex-col gap-1 ">
-          <label htmlFor="image_alt_text">Alt de l'image</label>
+          <label htmlFor="image_alt_text">Alt de l'image principale</label>
           <input
             type="text"
             name="image_alt_text"
