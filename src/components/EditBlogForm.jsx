@@ -105,16 +105,6 @@ function EditBlogForm({ blog, onClose, onSave }) {
             required
           />
         </div>
-        {/* <div className="flex flex-col gap-1 ">
-          <label htmlFor="main_image_url">Image principale</label>
-          <input
-            type="file"
-            name="main_image_url"
-            id="main_image_url"
-            className="w-full border border-neutral-500/20 p-2 rounded"
-            required
-          />
-        </div> */}
         <div className="flex flex-col gap-1 ">
           <label htmlFor="image_alt_text">Alt de l'image</label>
           <input

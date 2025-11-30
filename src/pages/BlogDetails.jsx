@@ -7,6 +7,8 @@ import Header from "../components/layout/header.jsx";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import Loading from "../components/layout/loading.jsx";
+import Footer from "../components/layout/footer.jsx";
 // eslint-disable-next-line react-refresh/only-export-components
 export const Month = [
   "Janvier",
@@ -28,10 +30,15 @@ const BlogDetails = ({ blogs }) => {
   const blog = blogs.find((blog) => blog.id === parseInt(blogId));
   const [randomBlogs, setRandomBlogs] = useState([]);
   let formatedDate = new Date(blog.publication_date);
+  const [loading, setLoading] = useState(false);
 
   const NUMBER_OF_BLOGS = 4;
   const navigate = useNavigate();
   const handleNavigate = (id) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
     navigate(`/blog/${id}`);
   };
 
@@ -43,6 +50,10 @@ const BlogDetails = ({ blogs }) => {
       setRandomBlogs(selected);
     }
   }, [blogs]);
+
+  if (loading === true) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -102,6 +113,18 @@ const BlogDetails = ({ blogs }) => {
 
           <div className="text-gray-500/80">
             <p>{blog.content_body}</p>
+          </div>
+
+          <div className="row grid gap-2 lg:grid-cols-2">
+            {blog.images_annexe.map((image, index) => {
+              return (
+                <img
+                  className="w-full h-full rounded-xl object-cover"
+                  src={image}
+                  alt={"image annexe n° " + index}
+                />
+              );
+            })}
           </div>
 
           <div>
@@ -229,8 +252,12 @@ const BlogDetails = ({ blogs }) => {
                     />
                   </div>
                   <div className="w-full space-y-4">
-                    <h3 className="text-xl lg:text-[15px]">{blog.meta_title}</h3>
-                    <p className="text-sm lg:hidden">{blog.meta_description.slice(0, 100)} ...</p>
+                    <h3 className="text-xl lg:text-[15px]">
+                      {blog.meta_title}
+                    </h3>
+                    <p className="text-sm lg:hidden">
+                      {blog.meta_description.slice(0, 100)} ...
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -238,6 +265,8 @@ const BlogDetails = ({ blogs }) => {
           </motion.aside>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
