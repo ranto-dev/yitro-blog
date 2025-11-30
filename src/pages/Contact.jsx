@@ -3,35 +3,36 @@ import {
   FaEnvelope,
   FaPhone,
   FaFacebook,
-  FaTwitter,
   FaLinkedin,
-  FaInstagram,
 } from "react-icons/fa";
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 function ContactPage() {
-  const sumbmitMail = (e)=>{
-    e.preventDefault()
-    let formData = new FormData(e.target)
+  const sumbmitMail = (e) => {
+    e.preventDefault();
+    let formData = new FormData(e.target);
     fetch("https://blog.yitro-consulting.com/email", {
-      method:"POST",
+      method: "POST",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
       body: JSON.stringify({
         sender: formData.get("sender"),
         content: formData.get("content"),
         name: formData.get("name"),
-        subject: formData.get("subject")
-      })
-    }).then(res=>res.json())
-    .then(res=>{
-      alert("Email send")
+        subject: formData.get("subject"),
+      }),
     })
-    .catch(err=>console.error(err))
-  }
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        alert("Email send");
+      })
+      .catch((err) => console.error(err));
+  };
   return (
     <>
       <Header />
@@ -104,28 +105,12 @@ function ContactPage() {
                     <FaFacebook className="h-7 w-7" />
                   </a>
                   <a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-blue-400 transition duration-150"
-                  >
-                    <FaTwitter className="h-7 w-7" />
-                  </a>
-                  <a
                     href="https://linkedin.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-500 hover:text-blue-700 transition duration-150"
                   >
                     <FaLinkedin className="h-7 w-7" />
-                  </a>
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-pink-500 transition duration-150"
-                  >
-                    <FaInstagram className="h-7 w-7" />
                   </a>
                 </div>
               </div>

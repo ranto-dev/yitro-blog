@@ -1,4 +1,4 @@
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaLinkedin } from "react-icons/fa";
 
 const quickLinks = [
   { name: "Accueil", href: "/" },
@@ -7,13 +7,9 @@ const quickLinks = [
   { name: "Contact", href: "/contact" },
 ];
 
-const legalLinks = [
-  { name: "Politique de Confidentialité", href: "/privacy" },
-  { name: "Conditions d'Utilisation", href: "/terms" },
-  { name: "Plan du Site", href: "/sitemap" },
-];
+const legalLinks = [{ name: "Politique de Confidentialité", href: "/privacy" }];
 
-function Footer() {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -97,6 +93,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
