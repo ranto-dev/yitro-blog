@@ -53,7 +53,9 @@ function ContactPage() {
               transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
               className="text-sm text-gray-600 max-w-3xl mx-auto"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Contactez-nous, et parlons de la façon dont nous pouvons
+              collaborer pour faire avancer votre entreprise grâce à des
+              solutions technologiques innovantes et sur mesure.
             </motion.p>
           </section>
 
@@ -72,21 +74,23 @@ function ContactPage() {
                   <FaMapMarkerAlt className="h-6 w-6 text-blue-600 flex-shrink-0 mr-4 mt-1" />
                   <div>
                     <p className="font-medium">Adresse du Bureau</p>
-                    <p>1234-T 123 Antsirabe, Madagascar</p>
+                    <p>
+                      Lot 304-D-240 , Andafiatsimo Ambohitrinibe 110, Madagascar
+                    </p>
                   </div>
                 </li>
                 <li className="flex items-start text-gray-700">
                   <FaEnvelope className="h-6 w-6 text-blue-600 flex-shrink-0 mr-4 mt-1" />
                   <div>
                     <p className="font-medium">Email Général</p>
-                    <p>sk@yitro-consulting.com</p>
+                    <p>contact@yitro-consulting.com</p>
                   </div>
                 </li>
                 <li className="flex items-start text-gray-700">
                   <FaPhone className="h-6 w-6 text-blue-600 flex-shrink-0 mr-4 mt-1" />
                   <div>
                     <p className="font-medium">Téléphone</p>
-                    <p>+261 23 145 67</p>
+                    <p>+261 34 53 313 87</p>
                   </div>
                 </li>
               </ul>
@@ -196,6 +200,26 @@ function ContactPage() {
                 >
                   Envoyer le Message
                 </button>
+
+                <div>
+                  <p className="text-xl font-semibold">
+                    * Ces champs sont obligatoires
+                  </p>
+                  <p>
+                    SK Yitro consulting s'engage à ce que la collecte et le
+                    traitement de vos données, éffectués à partir de notre site
+                    yitro-consulting.com, soient conformes au règlement général
+                    sur la protection de données (RGPD) et à la loi informatique
+                    et Libertés. Pour connaitre et exercer vos droits, notamment
+                    de retrait de votre consentement à l'utilisation des données
+                    collectées par ce formulaire, ou à vous inscrire sur la
+                    liste d'opposition au démarche téléphonique. Veuillez
+                    consulter notre{" "}
+                    <a className="text-blue-500 hover:underline" href="">
+                      Politique de Confifentialité
+                    </a>
+                  </p>
+                </div>
               </form>
             </motion.div>
           </div>

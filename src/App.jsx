@@ -6,6 +6,7 @@ import Loading from "./components/layout/loading.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ServicesPage from "./pages/Service.jsx";
 import ContactPage from "./pages/Contact.jsx";
+import CookieConsent from "./components/CookieConsent.jsx";
 
 export let handleLogin = (info) => {};
 
@@ -141,6 +142,8 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
+
+      <CookieConsent />
     </Router>
   );
 }

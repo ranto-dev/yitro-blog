@@ -10,6 +10,7 @@ import { handleSignin } from "../utils/authentification.js";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
+
 function HomePage({ allBlogs }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
@@ -65,7 +66,8 @@ function HomePage({ allBlogs }) {
             }}
             className="text-sm text-gray-300 mb-8 max-w-3xl mx-auto"
           >
-            Une espace dédiée pour apprendre plus sur nos activités et nos originalités
+            Une espace dédiée pour apprendre plus sur nos activités et nos
+            originalités
           </motion.p>
           <motion.a
             initial={{ opacity: 0, scale: 0.5 }}
