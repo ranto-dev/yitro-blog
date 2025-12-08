@@ -10,7 +10,6 @@ import { handleSignin } from "../utils/authentification.js";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
-
 function HomePage({ allBlogs }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
@@ -100,7 +99,7 @@ function HomePage({ allBlogs }) {
               transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
               className="text-4xl"
             >
-              Trois Articles à Ne Pas Manqué
+              Trois Articles à Ne Pas Manquer
             </motion.p>
           </h2>
 
