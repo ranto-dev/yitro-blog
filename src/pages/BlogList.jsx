@@ -25,7 +25,7 @@ const BlogList = ({ blogs, isAdmin }) => {
 
   const handleCreateBlog = (newBlog) => {
     console.log(newBlog);
-    fetch("https://blog.yitro-consulting.com/article", {
+    fetch("https://backblog.yitro-consulting.com/article", {
       method: "POST",
       headers: {
         authorization: "Bearer " + window.localStorage.getItem("access_token"),
@@ -43,7 +43,7 @@ const BlogList = ({ blogs, isAdmin }) => {
 
   const handleUpdateBlog = (id, updatedData) => {
     console.log("handleUpdate" + id, updatedData);
-    fetch("https://blog.yitro-consulting.com/article/" + id, {
+    fetch("https://backblog.yitro-consulting.com/article/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -77,7 +77,7 @@ const BlogList = ({ blogs, isAdmin }) => {
   const handleDeleteBlog = (id) => {
     // code pour insertion
     console.log("Delete blog id: " + id);
-    fetch("https://blog.yitro-consulting.com/article/" + id, {
+    fetch("https://backblog.yitro-consulting.com/article/" + id, {
       method: "DELETE",
       headers: {
         authorization: "Bearer " + window.localStorage.getItem("access_token"),

@@ -47,7 +47,7 @@ function App() {
     data.set("username", info.username);
     data.set("password", info.password);
 
-    fetch("https://blog.yitro-consulting.com/token", {
+    fetch("https://backblog.yitro-consulting.com/login", {
       method: "POST",
       body: data,
     })
@@ -56,7 +56,7 @@ function App() {
         console.log(response);
 
         window.localStorage.setItem("access_token", response.access_token);
-        fetch("https://blog.yitro-consulting.com/users/me", {
+        fetch("https://backblog.yitro-consulting.com/current", {
           headers: {
             authorization: "Bearer " + response.access_token,
           },
@@ -71,6 +71,7 @@ function App() {
               setConnected(true);
               setIsAdmin(true);
               setAdmin(true);
+              window.location.reload()
             }
           });
       })
@@ -85,7 +86,7 @@ function App() {
   useEffect(() => {
     const abortController = new AbortController();
 
-    fetch("https://blog.yitro-consulting.com/users/me", {
+    fetch("https://backblog.yitro-consulting.com/current", {
       headers: {
         authorization: "Bearer " + window.localStorage.getItem("access_token"),
       },
@@ -102,7 +103,7 @@ function App() {
         }
       });
 
-    fetch("/blogs.json", {
+    fetch("https://backblog.yitro-consulting.com/article", {
       method: "GET",
       signal: abortController.signal,
     })

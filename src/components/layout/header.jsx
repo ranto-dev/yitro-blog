@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import Modal from "../Modal.jsx";
 import LoginForm from "./loginForm.jsx";
 import SigninForm from "./signinForm.jsx";
 import { handleSignin } from "../../utils/authentification.js";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { handleLogin, useLocalStorage } from "../../App.jsx";
 import { BiLogOut } from "react-icons/bi";
 

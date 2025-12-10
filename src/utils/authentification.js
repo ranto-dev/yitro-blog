@@ -3,7 +3,7 @@
 
 export const handleSignin = (info) => {
   if (info.password === info.conf_password) {
-    fetch("https://blog.yitro-consulting.com/users", {
+    fetch("https://backblog.yitro-consulting.com/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
