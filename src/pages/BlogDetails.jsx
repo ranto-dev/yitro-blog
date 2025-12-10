@@ -90,7 +90,7 @@ const BlogDetails = ({ blogs }) => {
             className="w-full"
           >
             <img
-              src={blog.main_image_url}
+              src={'https://backblog.yitro-consulting.com/'+blog.main_image_url}
               alt={blog.image_alt_text}
               className={`w-full h-[500px] rounded-xl object-cover`}
             />
@@ -114,16 +114,18 @@ const BlogDetails = ({ blogs }) => {
           <div className="text-gray-500/80">
             <p>{blog.content_body}</p>
           </div>
-
+              
           <div className="row grid gap-2 lg:grid-cols-2">
-            {blog.images_annexe.map((image, index) => {
-              return (
+            {blog.images_annexe != undefined && blog.images_annexe.map((image, index) => {
+               
+               <>
                 <img
                   className="w-full h-full rounded-xl object-cover"
-                  src={image}
+                  src={'https://backblog.yitro-consulting.com/'+image}
                   alt={"image annexe n° " + index}
                 />
-              );
+               </>
+              
             })}
           </div>
 
@@ -246,7 +248,7 @@ const BlogDetails = ({ blogs }) => {
                 >
                   <div className="w-full">
                     <img
-                      src={blog.main_image_url}
+                      src={'https://backblog.yitro-consulting.com/'+blog.main_image_url}
                       className="w-full h-[200px] lg:h-24 object-cover rounded-lg"
                       alt={blog.image_alt_text}
                     />

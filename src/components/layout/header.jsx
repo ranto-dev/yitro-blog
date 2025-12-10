@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import Modal from "../Modal.jsx";

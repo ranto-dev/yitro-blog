@@ -2,8 +2,8 @@ function CreateBlogForm({ onClose, onCreate }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData(e.target);
-    formData.set("date", new Date().toISOString());
-    formData.set("author_id", window.localStorage.getItem("users_id"));
+    formData.set("publication_date", new Date().toISOString());
+    // formData.set("author_id", window.localStorage.getItem("users_id"));
     onCreate(formData);
     onClose();
   };
@@ -81,7 +81,7 @@ function CreateBlogForm({ onClose, onCreate }) {
           </label>
           <input
             type="file"
-            name="main_image_url"
+            name="image"
             id="main_image_url"
             className="w-full border border-neutral-500/20 p-2 rounded"
             required

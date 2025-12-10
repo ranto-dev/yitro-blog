@@ -2,8 +2,8 @@ export default function ImageAnnexeForm({ onClose, blog }) {
   const submitFile = (e) => {
     e.preventDefault();
     let formData = new FormData(e.target);
-    formData.set("article_id", blog.id);
-    fetch("https://blog.yitro-consulting.com/image/annexe", {
+    // formData.set("article_id", blog.id);
+    fetch("https://backblog.yitro-consulting.com/image/annexe/"+blog.id, {
       method: "POST",
       headers: {
         authorization: "Bearer " + window.localStorage.getItem("access_token"),
