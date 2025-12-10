@@ -49,16 +49,22 @@ function App() {
 
     fetch("https://backblog.yitro-consulting.com/login", {
       method: "POST",
-      body: data,
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        "username": info.username,
+        "password": info.password
+      }),
     })
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
 
-        window.localStorage.setItem("access_token", response.access_token);
+        window.localStorage.setItem("access_token", response.token);
         fetch("https://backblog.yitro-consulting.com/current", {
           headers: {
-            authorization: "Bearer " + response.access_token,
+            authorization: "Bearer " + response.token,
           },
         })
           .then((res) => res.json())

@@ -24,12 +24,14 @@ const BlogList = ({ blogs, isAdmin }) => {
   };
 
   const handleCreateBlog = (newBlog) => {
-    console.log(newBlog);
+    console.log(JSON.stringify(newBlog));
+    
     fetch("https://backblog.yitro-consulting.com/article", {
       method: "POST",
       headers: {
-        authorization: "Bearer " + window.localStorage.getItem("access_token"),
+        authorization: "Bearer " + window.localStorage.getItem("access_token")
       },
+
       body: newBlog,
     })
       .then((res) => res.json())
@@ -38,7 +40,7 @@ const BlogList = ({ blogs, isAdmin }) => {
         alert("Votre publication a été crée avec success!");
         window.location.reload();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("erreur ", err));
   };
 
   const handleUpdateBlog = (id, updatedData) => {
@@ -163,7 +165,7 @@ const BlogList = ({ blogs, isAdmin }) => {
           <span>Nouvelle article</span>
         </button>
       </div>
-      <section>
+      <section >
         <div className="w-full grid md:grid-cols-2 gap-6 lg:grid-cols-3 p-6">
           {blogs.map((blog) => (
             <motion.div
@@ -227,7 +229,7 @@ const BlogList = ({ blogs, isAdmin }) => {
                   </button>
                 </div>
                 <img
-                  src={blog.main_image_url}
+                  src={'https://backblog.yitro-consulting.com/'+blog.main_image_url}
                   alt={blog.image_alt_text || "Image de l'article n°" + blog.id}
                   className={`w-full h-[300px] rounded-t-xl object-cover border-none 
                   transition-all duration-300 ease-in-out 

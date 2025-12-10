@@ -5,7 +5,7 @@ import Modal from "../Modal.jsx";
 import LoginForm from "./loginForm.jsx";
 import SigninForm from "./signinForm.jsx";
 import { handleSignin } from "../../utils/authentification.js";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { handleLogin, useLocalStorage } from "../../App.jsx";
 import { BiLogOut } from "react-icons/bi";
 

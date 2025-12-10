@@ -119,7 +119,7 @@ function HomePage({ allBlogs }) {
                 >
                   <div className="w-full h-48 relative overflow-hidden">
                     <img
-                      src={blog.main_image_url}
+                      src={'https://backblog.yitro-consulting.com/'+blog.main_image_url}
                       alt={blog.image_alt_text}
                       className="w-full h-full object-cover transition group-hover:scale-105 duration-500 "
                     />
