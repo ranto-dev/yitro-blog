@@ -56,17 +56,17 @@ const BlogList = ({ blogs, isAdmin }) => {
         content_h1: updatedData.content_h1,
         content_body: updatedData.content_body,
         slug: updatedData.slug,
-        main_image_url: updatedData.main_image_url,
+        // main_image_url: updatedData.main_image_url,
         image_alt_text: updatedData.image_alt_text,
         meta_description: updatedData.meta_description,
         meta_keywords: updatedData.meta_keywords,
         publication_date: updatedData.publication_date,
         seo_score: updatedData.seo_score,
         is_published: updatedData.is_published,
-        author_id: updatedData.author_id,
+        // author_id: updatedData.author_id,
       }),
     })
-      .then((res) => res.json())
+      .then()
       .then((res) => {
         console.log(res);
         window.location.reload();
