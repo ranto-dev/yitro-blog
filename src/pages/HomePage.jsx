@@ -1,185 +1,196 @@
 import { useState, useEffect } from "react";
-import selectRandomObjects from "../utils/selectRandomObjects";
-import { FaArrowRight, FaFeatherAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  FaArrowRight,
+  FaFeatherAlt,
+  FaLightbulb,
+  FaChartLine,
+  FaCogs,
+} from "react-icons/fa";
+
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
 import Modal from "../components/Modal.jsx";
 import SigninForm from "../components/layout/signinForm.jsx";
-import { Link } from "react-router-dom";
+
+import selectRandomObjects from "../utils/selectRandomObjects";
 import { handleSignin } from "../utils/authentification.js";
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
 
 function HomePage({ allBlogs }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const NUMBER_OF_BLOGS = 3;
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   useEffect(() => {
-    if (allBlogs && allBlogs.length > 0) {
-      const count = Math.min(NUMBER_OF_BLOGS, allBlogs.length);
-      const selected = selectRandomObjects(allBlogs, count);
-      setFeaturedBlogs(selected);
+    if (allBlogs?.length) {
+      setFeaturedBlogs(
+        selectRandomObjects(
+          allBlogs,
+          Math.min(NUMBER_OF_BLOGS, allBlogs.length),
+        ),
+      );
     }
   }, [allBlogs]);
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <section className="relative pt-24 pb-32 bg-gray-900 text-white overflow-hidden">
-        <div className="container mx-auto px-4 text-center z-10 relative">
+
+      <section className="relative pt-28 pb-32 bg-gray-900 text-white overflow-hidden">
+        <div className="container mx-auto px-4 text-center relative z-10 max-w-4xl">
+          <motion.span
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-block mb-4 px-4 py-1 text-sm rounded-full bg-blue-500/10 text-blue-400"
+          >
+            SK Yitro Consulting • Blog & Insights
+          </motion.span>
+
           <motion.h1
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              delay: 0.4,
-            }}
-            className="text-4xl tracking-tight mb-4 space-y-5"
+            transition={{ type: "spring", stiffness: 80 }}
+            className="text-4xl md:text-5xl font-bold leading-tight"
           >
-            <motion.p
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 100,
-                delay: 0.2,
-              }}
-            >
-              Visiter nos publication et nous connaître d'avantage
-            </motion.p>
-            <span className="text-blue-400">YitroBLOG</span>
+            Des analyses claires <br />
+            <span className="text-blue-400">pour mieux décider</span>
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              delay: 0.4,
-            }}
-            className="text-sm text-gray-300 mb-8 max-w-3xl mx-auto"
+
+          <p className="mt-6 text-gray-300 text-lg">
+            Articles, analyses et retours d’expérience pour accompagner les
+            entreprises vers la performance.
+          </p>
+
+          <Link
+            to="/articles"
+            className="inline-flex items-center mt-10 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg"
           >
-            Une espace dédiée pour apprendre plus sur nos activités et nos
-            originalités
-          </motion.p>
-          <motion.a
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
-            whileHover={{ scale: 1.02 }}
-            href="/articles"
-            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-blue-600 hover:bg-blue-700"
-          >
-            Commencer maintenant <FaArrowRight className="ml-3 h-4 w-4" />
-          </motion.a>
+            Explorer les articles <FaArrowRight className="ml-3" />
+          </Link>
         </div>
-        <div className="absolute inset-0 bg-black opacity-40"></div>
+
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80" />
       </section>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <section className="py-16">
-          <h2 className="text-gray-800 mb-8 border-b-2 border-blue-500 pb-2 inline-block">
-            <motion.p
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-              className="uppercase"
+      <section className="py-20 container mx-auto px-4">
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          {[
+            {
+              icon: <FaLightbulb />,
+              title: "Expertise terrain",
+              desc: "Des contenus basés sur des expériences réelles et des projets concrets.",
+            },
+            {
+              icon: <FaChartLine />,
+              title: "Vision stratégique",
+              desc: "Comprendre les enjeux business, numériques et organisationnels.",
+            },
+            {
+              icon: <FaCogs />,
+              title: "Approche pragmatique",
+              desc: "Des idées applicables, claires et directement exploitables.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -5 }}
+              className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition"
             >
-              Notre Sélection du Moment :
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
-              className="text-4xl"
-            >
-              Trois Articles à Ne Pas Manquer
-            </motion.p>
+              <div className="text-blue-600 text-3xl mb-4 mx-auto">
+                {item.icon}
+              </div>
+              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <p className="text-gray-600 text-sm">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className="py-20 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <h2 className="mb-12">
+            <p className="uppercase text-blue-600 font-medium">
+              Sélection du moment
+            </p>
+            <p className="text-4xl font-bold text-gray-800">
+              Articles à ne pas manquer
+            </p>
           </h2>
 
-          {featuredBlogs.length > 0 ? (
+          {featuredBlogs.length ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredBlogs.map((blog) => (
                 <motion.div
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    delay: blog.id / 10,
-                  }}
                   key={blog.id}
-                  className="bg-white rounded-xl shadow-xl overflow-hidden group hover:shadow-2xl"
+                  whileHover={{ y: -5 }}
+                  className="bg-white rounded-xl shadow-lg overflow-hidden group"
                 >
-                  <div className="w-full h-48 relative overflow-hidden">
-                    <img
-                      src={blog.main_image_url}
-                      alt={blog.image_alt_text}
-                      className="w-full h-full object-cover transition group-hover:scale-105 duration-500 "
-                    />
-                  </div>
+                  <img
+                    src={blog.main_image_url}
+                    alt={blog.image_alt_text}
+                    className="h-44 w-full object-cover group-hover:scale-105 transition duration-500"
+                  />
 
                   <div className="p-6 space-y-3">
-                    <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition duration-300">
+                    <span className="text-xs uppercase text-blue-500 font-semibold">
+                      Article
+                    </span>
+
+                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600">
                       {blog.title}
                     </h3>
+
                     <p className="text-gray-600 text-sm">
                       {blog.meta_title
-                        ? `${blog.meta_title.slice(0, 200)}...`
-                        : "Pas de contenu disponible..."}
+                        ? `${blog.meta_title.slice(0, 140)}...`
+                        : "Aucun contenu disponible"}
                     </p>
+
                     <Link
                       to={`/blog/${blog.id}`}
-                      className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
+                      className="inline-flex items-center text-sm text-blue-600 font-medium hover:underline"
                     >
-                      Lire la suite <FaArrowRight className="ml-2 h-3 w-3" />
+                      Lire l’article <FaArrowRight className="ml-2 h-3 w-3" />
                     </Link>
                   </div>
                 </motion.div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-600">
-              Aucun article disponible pour le moment.
-            </p>
+            <p className="text-gray-600">Aucun article disponible.</p>
           )}
-        </section>
+        </div>
+      </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-          className="py-16"
-        >
-          <div className="bg-blue-600 text-white p-10 rounded-xl shadow-2xl flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold flex items-center justify-center md:justify-start">
-                <FaFeatherAlt className="mr-3 h-6 w-6" />
-                Ne manquez rien de neuf !
-              </h3>
-              <p className="text-blue-100 mt-1">
-                Abonnez-vous à notre newsletter pour recevoir les derniers
-                articles directement par email.
-              </p>
-            </div>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
-            >
-              S'inscrire maintenant
-            </button>
+      <section className="py-20 container mx-auto px-4">
+        <div className="bg-blue-600 text-white p-10 rounded-xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="text-2xl font-bold flex items-center">
+              <FaFeatherAlt className="mr-3" />
+              Restez informé
+            </h3>
+            <p className="text-blue-100 mt-2">
+              Recevez nos derniers articles et analyses directement par email.
+            </p>
           </div>
-        </motion.section>
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <SigninForm onClose={closeModal} onCreate={handleSignin} />
-        </Modal>
-      </div>
+
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-gray-100 transition"
+          >
+            Recevoir les articles
+          </button>
+        </div>
+      </section>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <SigninForm
+          onClose={() => setIsModalOpen(false)}
+          onCreate={handleSignin}
+        />
+      </Modal>
+
       <Footer />
     </div>
   );
