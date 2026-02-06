@@ -1,16 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import {
-  OrbitControls,
-  Sphere,
-  MeshDistortMaterial,
-  Stars,
-} from "@react-three/drei";
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
-
 import {
   FaArrowRight,
   FaFeatherAlt,
@@ -29,6 +18,8 @@ import SigninForm from "../components/layout/signinForm.jsx";
 
 import selectRandomObjects from "../utils/selectRandomObjects";
 import { handleSignin } from "../utils/authentification.js";
+import Hero3DObject from "../components/Hero3DObject.jsx";
+import FeaturedBlogsSection from "../components/FeaturedBlogsSection.jsx";
 
 function HomePage({ allBlogs }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,136 +42,10 @@ function HomePage({ allBlogs }) {
       <Header />
 
       {/* HERO */}
-
-      <section className="relative w-full h-screen text-white overflow-hidden">
-        {/* Texte au-dessus */}
-        <div className="absolute top-1/2 left-1/2 z-10 max-w-4xl -translate-x-1/2 -translate-y-1/2 text-center px-4">
-          <motion.span
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block mb-4 px-4 py-1 text-sm rounded-full bg-blue-500/10 text-blue-400"
-          >
-            SK Yitro Consulting • Blog & Insights
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold leading-tight"
-          >
-            Des analyses claires <br />
-            <span className="text-blue-400">pour mieux décider</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="mt-6 text-gray-300 text-lg"
-          >
-            Stratégie, technologie et performance au service des entreprises
-            ambitieuses.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <Link
-              to="/articles"
-              className="inline-flex items-center mt-10 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg"
-            >
-              Explorer les articles <FaArrowRight className="ml-3" />
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Canvas Three.js pour l'orbe 3D */}
-        <Canvas
-          className="absolute inset-0 z-0"
-          camera={{ position: [0, 0, 5], fov: 50 }}
-        >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={1} />
-
-          <Suspense fallback={null}>
-            <Sphere args={[1.5, 64, 64]} scale={1}>
-              <MeshDistortMaterial
-                color="#3b82f6"
-                attach="material"
-                distort={0.5}
-                speed={2}
-                roughness={0.2}
-              />
-            </Sphere>
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-              autoRotate
-              autoRotateSpeed={0.5}
-            />
-          </Suspense>
-        </Canvas>
-      </section>
+      <Hero3DObject />
 
       {/* ARTICLES VEDETTES */}
-      <section className="py-20 bg-white ">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12">
-            <p className="uppercase text-blue-600 font-medium">
-              Sélection du moment
-            </p>
-            <p className="text-4xl font-bold text-gray-800">
-              Articles à ne pas manquer
-            </p>
-          </h2>
-
-          {featuredBlogs.length ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredBlogs.map((blog) => (
-                <div
-                  key={blog.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden group"
-                >
-                  <img
-                    src={blog.main_image_url}
-                    alt={blog.image_alt_text}
-                    className="h-44 w-full object-cover group-hover:scale-105 transition duration-500"
-                  />
-
-                  <div className="p-6 space-y-3">
-                    <span className="text-xs uppercase text-blue-500 font-semibold">
-                      Article
-                    </span>
-
-                    <h3 className="text-lg font-semibold group-hover:text-blue-600">
-                      {blog.title}
-                    </h3>
-
-                    <p className="text-gray-600 text-sm">
-                      {blog.meta_title
-                        ? `${blog.meta_title.slice(0, 140)}...`
-                        : "Aucun contenu disponible"}
-                    </p>
-
-                    <Link
-                      to={`/blog/${blog.id}`}
-                      className="inline-flex items-center text-sm text-blue-600 font-medium hover:underline"
-                    >
-                      Lire l’article <FaArrowRight className="ml-2 h-3 w-3" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-600">Aucun article disponible.</p>
-          )}
-        </div>
-      </section>
+      <FeaturedBlogsSection featuredBlogs={featuredBlogs} />
 
       {/* A PROPOS */}
       <section className="pt-24 pb-32 bg-white relative">
