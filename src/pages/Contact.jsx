@@ -53,7 +53,6 @@ function ContactPage() {
 
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* POURQUOI NOUS CONTACTER */}
           <motion.section
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -86,9 +85,7 @@ function ContactPage() {
             </div>
           </motion.section>
 
-          {/* CONTACT */}
           <div className="grid lg:grid-cols-3 gap-12">
-            {/* INFOS */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -125,7 +122,6 @@ function ContactPage() {
               </div>
             </motion.div>
 
-            {/* FORMULAIRE */}
             <motion.div
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
