@@ -1,15 +1,30 @@
 const Loading = () => {
   return (
-    <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-50">
-      <div className="relative w-24 h-24">
-        <div className="absolute inset-0 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin"></div>
-        <div className="absolute inset-4 rounded-full bg-blue-600 animate-pulse flex items-center justify-center">
-          <span className="text-white font-bold text-sm tracking-wide">
-            YITRO
-          </span>
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50">
+      {/* Cercle avec texte */}
+      <div className="relative flex flex-col items-center">
+        {/* Barres animées autour du texte */}
+        <div className="flex space-x-2 mb-6">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="w-3 h-12 bg-gradient-to-t from-blue-400 to-blue-600 rounded-full animate-bounce"
+              style={{
+                animationDelay: `${i * 0.15}s`,
+                animationDuration: "0.8s",
+              }}
+            ></div>
+          ))}
         </div>
+
+        {/* Texte central */}
+        <h1 className="text-2xl font-bold text-blue-600 tracking-wide">
+          Yitro Consulting
+        </h1>
       </div>
-      <p className="mt-8 text-sm text-gray-600 tracking-wide animate-fade">
+
+      {/* Sous-texte */}
+      <p className="mt-6 text-gray-600 text-sm animate-fade">
         Chargement en cours…
       </p>
     </div>

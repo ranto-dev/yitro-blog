@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import {
+  OrbitControls,
+  Sphere,
+  MeshDistortMaterial,
+  Stars,
+} from "@react-three/drei";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 
 import {
   FaArrowRight,
@@ -41,31 +51,79 @@ function HomePage({ allBlogs }) {
       <Header />
 
       {/* HERO */}
-      <section className="relative pt-28 pb-32 bg-gray-900 text-white overflow-hidden">
-        <div className="container mx-auto px-4 text-center relative z-10 max-w-4xl">
-          <span className="inline-block mb-4 px-4 py-1 text-sm rounded-full bg-blue-500/10 text-blue-400">
-            SK Yitro Consulting • Blog & Insights
-          </span>
 
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+      <section className="relative w-full h-screen text-white overflow-hidden">
+        {/* Texte au-dessus */}
+        <div className="absolute top-1/2 left-1/2 z-10 max-w-4xl -translate-x-1/2 -translate-y-1/2 text-center px-4">
+          <motion.span
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-block mb-4 px-4 py-1 text-sm rounded-full bg-blue-500/10 text-blue-400"
+          >
+            SK Yitro Consulting • Blog & Insights
+          </motion.span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-5xl font-bold leading-tight"
+          >
             Des analyses claires <br />
             <span className="text-blue-400">pour mieux décider</span>
-          </h1>
+          </motion.h1>
 
-          <p className="mt-6 text-gray-300 text-lg">
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="mt-6 text-gray-300 text-lg"
+          >
             Stratégie, technologie et performance au service des entreprises
             ambitieuses.
-          </p>
+          </motion.p>
 
-          <Link
-            to="/articles"
-            className="inline-flex items-center mt-10 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
           >
-            Explorer les articles <FaArrowRight className="ml-3" />
-          </Link>
+            <Link
+              to="/articles"
+              className="inline-flex items-center mt-10 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg"
+            >
+              Explorer les articles <FaArrowRight className="ml-3" />
+            </Link>
+          </motion.div>
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80" />
+        {/* Canvas Three.js pour l'orbe 3D */}
+        <Canvas
+          className="absolute inset-0 z-0"
+          camera={{ position: [0, 0, 5], fov: 50 }}
+        >
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+
+          <Suspense fallback={null}>
+            <Sphere args={[1.5, 64, 64]} scale={1}>
+              <MeshDistortMaterial
+                color="#3b82f6"
+                attach="material"
+                distort={0.5}
+                speed={2}
+                roughness={0.2}
+              />
+            </Sphere>
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              autoRotate
+              autoRotateSpeed={0.5}
+            />
+          </Suspense>
+        </Canvas>
       </section>
 
       {/* ARTICLES VEDETTES */}
