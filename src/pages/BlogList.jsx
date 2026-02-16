@@ -24,12 +24,14 @@ const BlogList = ({ blogs, isAdmin }) => {
   };
 
   const handleCreateBlog = (newBlog) => {
-    console.log(newBlog);
-    fetch("https://blog.yitro-consulting.com/article", {
+    console.log(JSON.stringify(newBlog));
+    
+    fetch("https://backblog.yitro-consulting.com/article", {
       method: "POST",
       headers: {
-        authorization: "Bearer " + window.localStorage.getItem("access_token"),
+        authorization: "Bearer " + window.localStorage.getItem("access_token")
       },
+
       body: newBlog,
     })
       .then((res) => res.json())
@@ -38,12 +40,12 @@ const BlogList = ({ blogs, isAdmin }) => {
         alert("Votre publication a été crée avec success!");
         window.location.reload();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("erreur ", err));
   };
 
   const handleUpdateBlog = (id, updatedData) => {
     console.log("handleUpdate" + id, updatedData);
-    fetch("https://blog.yitro-consulting.com/article/" + id, {
+    fetch("https://backblog.yitro-consulting.com/article/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -54,17 +56,17 @@ const BlogList = ({ blogs, isAdmin }) => {
         content_h1: updatedData.content_h1,
         content_body: updatedData.content_body,
         slug: updatedData.slug,
-        main_image_url: updatedData.main_image_url,
+        // main_image_url: updatedData.main_image_url,
         image_alt_text: updatedData.image_alt_text,
         meta_description: updatedData.meta_description,
         meta_keywords: updatedData.meta_keywords,
         publication_date: updatedData.publication_date,
         seo_score: updatedData.seo_score,
         is_published: updatedData.is_published,
-        author_id: updatedData.author_id,
+        // author_id: updatedData.author_id,
       }),
     })
-      .then((res) => res.json())
+      .then()
       .then((res) => {
         console.log(res);
         window.location.reload();
@@ -77,7 +79,7 @@ const BlogList = ({ blogs, isAdmin }) => {
   const handleDeleteBlog = (id) => {
     // code pour insertion
     console.log("Delete blog id: " + id);
-    fetch("https://blog.yitro-consulting.com/article/" + id, {
+    fetch("https://backblog.yitro-consulting.com/article/" + id, {
       method: "DELETE",
       headers: {
         authorization: "Bearer " + window.localStorage.getItem("access_token"),
@@ -163,7 +165,7 @@ const BlogList = ({ blogs, isAdmin }) => {
           <span>Nouvelle article</span>
         </button>
       </div>
-      <section>
+      <section >
         <div className="w-full grid md:grid-cols-2 gap-6 lg:grid-cols-3 p-6">
           {blogs.map((blog) => (
             <motion.div
@@ -227,7 +229,7 @@ const BlogList = ({ blogs, isAdmin }) => {
                   </button>
                 </div>
                 <img
-                  src={blog.main_image_url}
+                  src={'https://backblog.yitro-consulting.com/'+blog.main_image_url}
                   alt={blog.image_alt_text || "Image de l'article n°" + blog.id}
                   className={`w-full h-[300px] rounded-t-xl object-cover border-none 
                   transition-all duration-300 ease-in-out 

@@ -216,11 +216,31 @@ function HomePage({ allBlogs }) {
                   key={i}
                   className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition"
                 >
-                  <h4 className="text-lg font-semibold mb-2 text-gray-800">
-                    {item.title}
-                  </h4>
-                  <p className="text-gray-600 text-sm">{item.desc}</p>
-                </div>
+                  <div className="w-full h-48 relative overflow-hidden">
+                    <img
+                      src={'https://backblog.yitro-consulting.com/'+blog.main_image_url}
+                      alt={blog.image_alt_text}
+                      className="w-full h-full object-cover transition group-hover:scale-105 duration-500 "
+                    />
+                  </div>
+
+                  <div className="p-6 space-y-3">
+                    <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition duration-300">
+                      {blog.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      {blog.meta_title
+                        ? `${blog.meta_title.slice(0, 200)}...`
+                        : "Pas de contenu disponible..."}
+                    </p>
+                    <Link
+                      to={`/blog/${blog.id}`}
+                      className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
+                    >
+                      Lire la suite <FaArrowRight className="ml-2 h-3 w-3" />
+                    </Link>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
