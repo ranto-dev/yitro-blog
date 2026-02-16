@@ -76,7 +76,7 @@ export default function FeaturedBlogsSection({ featuredBlogs }) {
             {featuredBlogs.map((blog) => (
               <TiltCard key={blog.id}>
                 <img
-                  src={blog.main_image_url}
+                  src={"https://backblog.yitro-consulting.com/"+blog.main_image_url}
                   alt={blog.image_alt_text}
                   className="h-52 w-full object-cover"
                 />

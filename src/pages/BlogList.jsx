@@ -25,7 +25,7 @@ const BlogList = ({ blogs, isAdmin }) => {
 
   const handleCreateBlog = (newBlog) => {
     console.log(JSON.stringify(newBlog));
-    
+
     fetch("https://backblog.yitro-consulting.com/article", {
       method: "POST",
       headers: {
@@ -155,15 +155,17 @@ const BlogList = ({ blogs, isAdmin }) => {
     <>
       <Header />
       <div className="flex justify-end px-6 mb-4">
-        <button
-          onClick={() => openModal("create", null)}
-          className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${
-            isAdmin === true ? null : "hidden"
-          }`}
-        >
-          <FaPlusCircle />
-          <span>Nouvelle article</span>
-        </button>
+        
+        {isAdmin ?
+          <button
+            onClick={() => openModal("create", null)}
+            className={`flex justify-center items-center gap-2 bg-blue-500 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 hover:scale-105 duration-100 ease-in ${isAdmin === true ? null : "hidden"
+              }`}
+          >
+            <FaPlusCircle />
+            <span>Nouvelle article {isAdmin}</span>
+          </button>
+          : ""}
       </div>
       <section >
         <div className="w-full grid md:grid-cols-2 gap-6 lg:grid-cols-3 p-6">
@@ -191,18 +193,16 @@ const BlogList = ({ blogs, isAdmin }) => {
                   <button
                     onClick={() => openModal("edit", blog)}
                     className={`bg-black/60 cursor-pointer text-amber-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/80 ${
-                      isAdmin === true ? null : "hidden"
-                    } `}
+                    transition duration-300 hover:bg-black/80 ${isAdmin === true ? null : "hidden"
+                      } `}
                   >
                     <FaPen />
                   </button>
                   <button
                     onClick={() => openModal("imageAnnexe", blog)}
                     className={`bg-black/60 cursor-pointer text-amber-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/80 ${
-                      isAdmin === true ? null : "hidden"
-                    } `}
+                    transition duration-300 hover:bg-black/80 ${isAdmin === true ? null : "hidden"
+                      } `}
                   >
                     <PiPictureInPicture />
                   </button>
@@ -221,15 +221,14 @@ const BlogList = ({ blogs, isAdmin }) => {
                   <button
                     onClick={() => openModal("delete", blog)}
                     className={`bg-black/20 cursor-pointer text-red-500 p-2 rounded-full text-lg 
-                    transition duration-300 hover:bg-black/60  ${
-                      isAdmin === true ? null : "hidden"
-                    }`}
+                    transition duration-300 hover:bg-black/60  ${isAdmin === true ? null : "hidden"
+                      }`}
                   >
                     <FaTrash />
                   </button>
                 </div>
                 <img
-                  src={'https://backblog.yitro-consulting.com/'+blog.main_image_url}
+                  src={'https://backblog.yitro-consulting.com/' + blog.main_image_url}
                   alt={blog.image_alt_text || "Image de l'article n°" + blog.id}
                   className={`w-full h-[300px] rounded-t-xl object-cover border-none 
                   transition-all duration-300 ease-in-out 

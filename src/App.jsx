@@ -28,7 +28,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [admin, setAdmin] = useLocalStorage("isAdmin", false);
   //const [isAdmin, setIsAdmin] = useState(admin);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [users_id, setUsersID] = useLocalStorage("users_id", 0);
   const [users_full_name, setUsersFullName] = useLocalStorage(
     "users_full_name",
@@ -100,7 +100,7 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         if (res.detail === "Could not validate credentials") {
-          console.log("admin");
+          console.log("not connected");
           setUsersID(0);
           setUsersFullName("");
           setUsersUsername("");
@@ -143,7 +143,7 @@ function App() {
         <Route path="/" element={<HomePage allBlogs={blogs} />} />
         <Route
           path="/articles"
-          element={<BlogList blogs={blogs} isAdmin={isAdmin} />}
+          element={<BlogList blogs={blogs} isAdmin={admin} />}
         />
         <Route path="/blog/:blogId" element={<BlogDetails blogs={blogs} />} />
         <Route path="/services" element={<ServicesPage />} />
