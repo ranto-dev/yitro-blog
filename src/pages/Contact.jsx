@@ -4,6 +4,7 @@ import {
   FaPhone,
   FaFacebook,
   FaLinkedin,
+  FaCheckCircle,
 } from "react-icons/fa";
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
@@ -14,11 +15,10 @@ function ContactPage() {
   const sumbmitMail = (e) => {
     e.preventDefault();
     let formData = new FormData(e.target);
+
     fetch("https://blog.yitro-consulting.com/email", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({
         sender: formData.get("sender"),
         content: formData.get("content"),
@@ -27,204 +27,158 @@ function ContactPage() {
       }),
     })
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        alert("Email send");
-      })
-      .catch((err) => console.error(err));
+      .then(() => alert("Votre message a bien été envoyé ✅"))
+      .catch(() => alert("Erreur lors de l'envoi du message ❌"));
   };
+
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-50 py-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <section className="text-center mb-12">
-            <motion.h1
-              initial={{ opacity: 0, y: -100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-              className="text-4xl text-black mb-4"
-            >
-              Contactez-Nous
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: -100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
-              className="text-sm text-gray-600 max-w-3xl mx-auto"
-            >
-              Contactez-nous, et parlons de la façon dont nous pouvons
-              collaborer pour faire avancer votre entreprise grâce à des
-              solutions technologiques innovantes et sur mesure.
-            </motion.p>
-          </section>
 
-          <div className="grid lg:grid-cols-3 gap-12 overflow-hidden">
+      {/* HERO */}
+      <section className="bg-gradient-to-r  bg-gray-900 py-20 text-white text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 80 }}
+          className="text-4xl font-bold mb-4"
+        >
+          Parlons de votre projet
+        </motion.h1>
+        <p className="max-w-3xl mx-auto text-sm opacity-90">
+          Une idée, un besoin ou un projet en cours ? Notre équipe est prête à
+          vous accompagner avec des solutions technologiques sur mesure.
+        </p>
+      </section>
+
+      <div className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 80 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-semibold mb-4">
+              Pourquoi contacter Yitro Consulting ?
+            </h2>
+            <p className="text-gray-600 max-w-3xl mx-auto text-sm">
+              Nous ne nous contentons pas de répondre : nous analysons,
+              conseillons et construisons des solutions fiables adaptées à votre
+              contexte métier.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8 mt-10">
+              {[
+                "Réponse rapide et personnalisée",
+                "Expertise technique éprouvée",
+                "Accompagnement stratégique",
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="bg-white p-6 rounded-xl shadow-md flex items-center justify-center space-x-3"
+                >
+                  <FaCheckCircle className="text-green-500" />
+                  <span className="text-sm font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+
+          <div className="grid lg:grid-cols-3 gap-12">
             <motion.div
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
-              className="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg h-full"
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 80 }}
+              className="bg-white p-8 rounded-xl shadow-lg"
             >
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 border-b pb-2">
-                Détails
-              </h2>
-              <ul className="space-y-6">
-                <li className="flex items-start text-gray-700">
-                  <FaMapMarkerAlt className="h-6 w-6 text-blue-600 flex-shrink-0 mr-4 mt-1" />
-                  <div>
-                    <p className="font-medium">Adresse du Bureau</p>
-                    <p>
-                      Lot 304-D-240 , Andafiatsimo Ambohitrinibe 110, Madagascar
-                    </p>
-                  </div>
+              <h3 className="text-xl font-semibold mb-6 border-b pb-2">
+                Coordonnées
+              </h3>
+
+              <ul className="space-y-6 text-sm">
+                <li className="flex">
+                  <FaMapMarkerAlt className="text-blue-600 mt-1 mr-4" />
+                  <span>
+                    Lot 304-D-240, Andafiatsimo Ambohitrinibe 110, Madagascar
+                  </span>
                 </li>
-                <li className="flex items-start text-gray-700">
-                  <FaEnvelope className="h-6 w-6 text-blue-600 flex-shrink-0 mr-4 mt-1" />
-                  <div>
-                    <p className="font-medium">Email Général</p>
-                    <p>contact@yitro-consulting.com</p>
-                  </div>
+                <li className="flex">
+                  <FaEnvelope className="text-blue-600 mt-1 mr-4" />
+                  <span>contact@yitro-consulting.com</span>
                 </li>
-                <li className="flex items-start text-gray-700">
-                  <FaPhone className="h-6 w-6 text-blue-600 flex-shrink-0 mr-4 mt-1" />
-                  <div>
-                    <p className="font-medium">Téléphone</p>
-                    <p>+261 34 53 313 87</p>
-                  </div>
+                <li className="flex">
+                  <FaPhone className="text-blue-600 mt-1 mr-4" />
+                  <span>+261 34 53 313 87</span>
                 </li>
               </ul>
 
-              <div className="mt-8 border-t pt-6">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900">
-                  Suivez-nous
-                </h3>
+              <div className="mt-8 pt-6 border-t">
+                <p className="font-semibold mb-4">Suivez-nous</p>
                 <div className="flex space-x-5">
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-blue-600 transition duration-150"
-                  >
-                    <FaFacebook className="h-7 w-7" />
-                  </a>
-                  <a
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-blue-700 transition duration-150"
-                  >
-                    <FaLinkedin className="h-7 w-7" />
-                  </a>
+                  <FaFacebook className="h-6 w-6 cursor-pointer hover:text-blue-600" />
+                  <FaLinkedin className="h-6 w-6 cursor-pointer hover:text-blue-700" />
                 </div>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 80 }}
               className="lg:col-span-2 bg-white p-8 rounded-xl shadow-lg"
             >
-              <h2 className="text-2xl text-gray-900 mb-6 border-b pb-2">
-                Envoyez-nous un Message
-              </h2>
-              <form className="space-y-6" onSubmit={sumbmitMail}>
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Nom Complet
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                  />
-                </div>
+              <h3 className="text-2xl font-semibold mb-6 border-b pb-2">
+                Envoyez-nous un message
+              </h3>
+
+              <form className="space-y-5" onSubmit={sumbmitMail}>
+                {[
+                  { label: "Nom complet", name: "name", type: "text" },
+                  { label: "Adresse email", name: "sender", type: "email" },
+                  { label: "Sujet", name: "subject", type: "text" },
+                ].map((field, i) => (
+                  <div key={i}>
+                    <label className="block text-sm mb-1">{field.label}</label>
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      required
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                ))}
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Adresse Email
-                  </label>
-                  <input
-                    type="email"
-                    name="sender"
-                    id="email"
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Sujet
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    id="subject"
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Votre Message
-                  </label>
+                  <label className="block text-sm mb-1">Message</label>
                   <textarea
                     name="content"
-                    id="message"
                     rows="4"
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                  ></textarea>
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 border border-transparent text-sm font-medium rounded-lg shadow-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150"
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
                 >
-                  Envoyer le Message
+                  Envoyer le message
                 </button>
 
-                <div>
-                  <p className="text-xl font-semibold">
-                    * Ces champs sont obligatoires
-                  </p>
-                  <p>
-                    SK Yitro consulting s'engage à ce que la collecte et le
-                    traitement de vos données, éffectués à partir de notre site
-                    yitro-consulting.com, soient conformes au règlement général
-                    sur la protection de données (RGPD) et à la loi informatique
-                    et Libertés. Pour connaitre et exercer vos droits, notamment
-                    de retrait de votre consentement à l'utilisation des données
-                    collectées par ce formulaire, ou à vous inscrire sur la
-                    liste d'opposition au démarche téléphonique. Veuillez
-                    consulter notre{" "}
-                    <a className="text-blue-500 hover:underline" href="">
-                      Politique de Confifentialité
-                    </a>
-                  </p>
-                </div>
+                <p className="text-xs text-gray-500">
+                  En envoyant ce formulaire, vous acceptez notre{" "}
+                  <a href="#" className="text-blue-600 underline">
+                    politique de confidentialité
+                  </a>
+                  .
+                </p>
               </form>
             </motion.div>
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );
